@@ -20,35 +20,35 @@ import StarknetProvider from "./starknet-provider.tsx";
  * @throws {Error} If initialization fails
  */
 async function main() {
-    const sdk = await init<SchemaType>(
-        {
-            client: {
-                rpcUrl: dojoConfig.rpcUrl,
-                toriiUrl: dojoConfig.toriiUrl,
-                relayUrl: dojoConfig.relayUrl,
-                worldAddress: dojoConfig.manifest.world.address,
-            },
-            domain: {
-                name: "WORLD_NAME",
-                version: "1.0",
-                chainId: "KATANA",
-                revision: "1",
-            },
-        },
-        schema
-    );
+    // const sdk = await init<SchemaType>(
+    //     {
+    //         client: {
+    //             rpcUrl: dojoConfig.rpcUrl,
+    //             toriiUrl: dojoConfig.toriiUrl,
+    //             relayUrl: dojoConfig.relayUrl,
+    //             worldAddress: dojoConfig.manifest.world.address,
+    //         },
+    //         domain: {
+    //             name: "WORLD_NAME",
+    //             version: "1.0",
+    //             chainId: "KATANA",
+    //             revision: "1",
+    //         },
+    //     },
+    //     schema
+    // );
 
     createRoot(document.getElementById("root")!).render(
         <StrictMode>
-            <DojoSdkProvider
+            {/* <DojoSdkProvider
                 sdk={sdk}
                 dojoConfig={dojoConfig}
                 clientFn={setupWorld}
-            >
+            > */}
                 <StarknetProvider>
                     <App />
                 </StarknetProvider>
-            </DojoSdkProvider>
+            {/* </DojoSdkProvider> */}
         </StrictMode>
     );
 }
