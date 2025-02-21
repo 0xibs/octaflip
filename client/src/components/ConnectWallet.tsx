@@ -17,16 +17,11 @@ export function ConnectWallet() {
 
     return (
         <div>
-            {address && (
-                <>
-                    <p>Account: {address}</p>
-                    {username && <p>Username: {username}</p>}
-                </>
-            )}
+
             {address ? (
-                <Button onClick={() => disconnect()}>Disconnect</Button>
+                <Button className="px-4 py-2 rounded-xl text-sm text-stone-300 bg-stone-600 shadow-inner border-2 border-stone-700 pointer" onClick={() => disconnect()}>{username && <p>{username}</p>}</Button>
             ) : (
-                <Button onClick={() => connect({ connector: controller })}>
+                <Button className="px-4 py-2 rounded-xl text-sm text-stone-300 bg-stone-600 shadow-inner border-2 border-stone-700 pointer" onClick={() => connect({ connector: controller })}>
                     Connect
                 </Button>
             )}
