@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
 import logo from './../assets/images/flip.png'
+import { ConnectWallet } from "./ConnectWallet";
 const Header = () => {
   return (
     <>
@@ -16,12 +16,13 @@ const Header = () => {
             />
             <span className="text-stone-400">FLIP</span>
           </h2>
-          <button
+          {/* <button
             type="button"
             className="px-4 py-2 rounded-xl text-sm text-stone-300 bg-stone-600 shadow-inner border-2 border-stone-700"
           >
             Connect Wallet
-          </button>
+          </button> */}
+          <ConnectWallet />
         </nav>
       </header>
     </>
