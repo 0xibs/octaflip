@@ -1,9 +1,9 @@
 {
   "world": {
     "class_hash": "0x2361c106e790c1d1bff8c9f73c9d84e9e3ac94b2d8df6db4ddd55e82c33a9b4",
-    "address": "0x190386ce184452b6fed8ff0b17b4d42ea47cdf8a2d1f0a98be083f53b41662f",
-    "seed": "dojo_starter",
-    "name": "Dojo starter",
+    "address": "0x4368a475c73b0f8ada02a5778dd0b425347550ab6b23ba7b961120116e08267",
+    "seed": "octa_flip",
+    "name": "Octa Flip",
     "entrypoints": [
       "uuid",
       "set_metadata",
@@ -1252,8 +1252,8 @@
   },
   "contracts": [
     {
-      "address": "0x717643bb97b795d56742c0e9bce08c52f446738cc04caa059181566722a2c50",
-      "class_hash": "0x5f78eaa04881fcabed8557dfefb26779b37ca44c8ac12c502808639dd3572f3",
+      "address": "0x7aa216c2bd13ba052681eeee2ba51ff1a3503e0e418fbeb88f2182af723f647",
+      "class_hash": "0x3c6fe82560cc17b2fd77a32e53988ab4bf8cae2f577e615257e4b8e0ac3199f",
       "abi": [
         {
           "type": "impl",
@@ -1318,7 +1318,11 @@
               "type": "function",
               "name": "create_game",
               "inputs": [],
-              "outputs": [],
+              "outputs": [
+                {
+                  "type": "core::integer::u64"
+                }
+              ],
               "state_mutability": "external"
             },
             {
@@ -1499,8 +1503,8 @@
         }
       ],
       "init_calldata": [],
-      "tag": "dojo_starter-actions",
-      "selector": "0x7a1c71029f2d0b38e3ac89b09931d08b6e48417e079c289ff19a8698d0cba33",
+      "tag": "octa_flip-actions",
+      "selector": "0x7ed3fa69c0c202f6b15776482927d3ea6990899ffec561d6f1cab40cd0b1ae7",
       "systems": [
         "create_game",
         "join_game",
@@ -1514,64 +1518,64 @@
     {
       "members": [],
       "class_hash": "0x24c6f4d7202b098a841b033f4a1fb4760adcc0d690e19d3411eafde49b974d8",
-      "tag": "dojo_starter-Game",
-      "selector": "0x19e11cf1403e104998a158f43ec6ae232dc65cf5445bcb29fb9fb5b7bb6c171"
+      "tag": "octa_flip-Game",
+      "selector": "0x23892fb4f5e5c817c4b7eee1a1e631cfb70d60266e4446e982afa2c78ca91ad"
     },
     {
       "members": [],
       "class_hash": "0x54ebd143c5bda4e7b4ebf11fb87cb898305a8300135dfabebdf5d9016c38071",
-      "tag": "dojo_starter-GameCounter",
-      "selector": "0x4a46573264e1a7c5616dff555497d8ed1e13e04668bb1179ded0ce91238e9cd"
+      "tag": "octa_flip-GameCounter",
+      "selector": "0x203023acb77511e176c2e522c721e56c36ba4930f55dc4af0852a2014693324"
     },
     {
       "members": [],
       "class_hash": "0x5253dc01c661f6e2f88be32ccbd87afa83802c3e146f262c7b994349e6a0e58",
-      "tag": "dojo_starter-PlayerAtPosition",
-      "selector": "0x64c8c67e031c05062541073ed83163d1c2b636d4863b5e614f78257c4ed6ff6"
+      "tag": "octa_flip-PlayerAtPosition",
+      "selector": "0x3725b070ee58746ed644b73956d46d5a329179d026c69d53b8a9becf83321b9"
     },
     {
       "members": [],
       "class_hash": "0x5a69127a48c7831e8f5e367a97b53dae4c0c8bf11554f5e6d8d7cd1d042b560",
-      "tag": "dojo_starter-PlayerInGame",
-      "selector": "0x6a30f72ae91ed21608d30593e6289db61889126a5b557d2e6658a045bcaa3c8"
+      "tag": "octa_flip-PlayerInGame",
+      "selector": "0x3368d9434d6716bf802ce4af9ab3f2dd2010cf1179fcc2b6eea30e842063b96"
     },
     {
       "members": [],
       "class_hash": "0x634a91fa4ed92d9f20a35807cfb2f8534de5b74d9dea6a38dd9a5e4930569d7",
-      "tag": "dojo_starter-Tile",
-      "selector": "0x269db396285c14be3b7c7c5c69282444a6c8a97348b9346131c75076f4fbcf3"
+      "tag": "octa_flip-Tile",
+      "selector": "0x4240445a40f4bcd92c87e32bf29f431f2ce2c93163f0d461312bef7a73bd42a"
     }
   ],
   "events": [
     {
       "members": [],
       "class_hash": "0x507159cdd819c08286a59227091f000c816b21cf671f48262984431d16db65d",
-      "tag": "dojo_starter-GameCreated",
-      "selector": "0x354a578c431bd6334ffce8b59eb31e47071c18714764ef59b9fbaa0468eae0e"
+      "tag": "octa_flip-GameCreated",
+      "selector": "0x261344ba354d8143ed382477769c3e732f9fa0f92f786dd435338c58c8f901b"
     },
     {
       "members": [],
       "class_hash": "0x71d12a5c8a50d656f54162b62044fbb6b86949b71924cbf4317a6f0c5adad05",
-      "tag": "dojo_starter-GameEnded",
-      "selector": "0x591f8c026b2af95e8e630f4e8acda5de1d66f623504fab61e513f2991d2c643"
+      "tag": "octa_flip-GameEnded",
+      "selector": "0x1e0e56909cbb93977738c998383c2cb09c89d2fbab6fea65269877b5e51cad4"
     },
     {
       "members": [],
       "class_hash": "0x1d5044746a77e0b5ea2b4dc3720d192c45ce874f862abbf912afa91dda25441",
-      "tag": "dojo_starter-GameStarted",
-      "selector": "0x415973a9b7be5bf3d4b0f81fe8c0d273800a913c4061c1ce6f647edbf2dc0e3"
+      "tag": "octa_flip-GameStarted",
+      "selector": "0x24e014d3f38f6a57005b967e747d892c9ad5941bfd9abe40c661b1f22a7e6be"
     },
     {
       "members": [],
       "class_hash": "0x38ff55159e75a2955098d8afb6a9fe0193c5352956032db39f07152db0d6abb",
-      "tag": "dojo_starter-PlayerJoined",
-      "selector": "0x27069c552c0cda44ce1622a9f4fcddc2aef6cb910e5054f91fdf53f1d656aee"
+      "tag": "octa_flip-PlayerJoined",
+      "selector": "0x666b015cf8dc8ec243e5563f4139da761304c64307c97797d0e3307c2b83924"
     },
     {
       "members": [],
       "class_hash": "0x62f98c93e7c045348b0fd19aabb3d2a157e8141118bc91516d0dac4f026d882",
-      "tag": "dojo_starter-TileClaim",
-      "selector": "0x56016e82077a7d94eeadfef11c748955b7dd30e0dba1ad2538c7aff50d703a0"
+      "tag": "octa_flip-TileClaim",
+      "selector": "0x79dd84075220c07fa8b25fea8c2f760deee03640bc7724d4fcce6711c291b17"
     }
   ]
 }

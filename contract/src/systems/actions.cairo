@@ -4,7 +4,7 @@ use starknet::ContractAddress;
 // define the interface
 #[starknet::interface]
 pub trait IActions<T> {
-    fn create_game(ref self: T); // -> u64 // game_id;
+    fn create_game(ref self: T) -> u64;
     fn join_game(ref self: T, game_id: u64);
     fn start_game(ref self: T, game_id: u64);
     fn claim_tile(ref self: T, game_id: u64, x: u8, y: u8);
@@ -93,7 +93,7 @@ pub mod actions {
         ///
         /// * `GameCreated`: Emitted when a new game is successfully created.  Includes
         ///   the `game_id`, `board_width`, `board_height`, and `number_of_players`.
-        fn create_game(ref self: ContractState) {
+        fn create_game(ref self: ContractState) -> u64 {
             let mut world = self.world_default();
             let game_id = self.game_uid();
 
@@ -118,7 +118,7 @@ pub mod actions {
                         number_of_players: 0,
                     },
                 );
-            //game_id
+            game_id
         }
 
         /// Allows a player to join a game.

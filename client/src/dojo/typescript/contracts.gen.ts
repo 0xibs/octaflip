@@ -17,7 +17,7 @@ export function setupWorld(provider: DojoProvider) {
 			return await provider.execute(
 				snAccount,
 				build_actions_claimTile_calldata(gameId, x, y),
-				"dojo_starter",
+				"octa_flip",
 			);
 		} catch (error) {
 			console.error(error);
@@ -38,7 +38,7 @@ export function setupWorld(provider: DojoProvider) {
 			return await provider.execute(
 				snAccount,
 				build_actions_createGame_calldata(),
-				"dojo_starter",
+				"octa_flip",
 			);
 		} catch (error) {
 			console.error(error);
@@ -56,7 +56,7 @@ export function setupWorld(provider: DojoProvider) {
 
 	const actions_gameWinner = async (gameId: BigNumberish) => {
 		try {
-			return await provider.call("dojo_starter", build_actions_gameWinner_calldata(gameId));
+			return await provider.call("octa_flip", build_actions_gameWinner_calldata(gameId));
 		} catch (error) {
 			console.error(error);
 			throw error;
@@ -76,7 +76,7 @@ export function setupWorld(provider: DojoProvider) {
 			return await provider.execute(
 				snAccount,
 				build_actions_joinGame_calldata(gameId),
-				"dojo_starter",
+				"octa_flip",
 			);
 		} catch (error) {
 			console.error(error);
@@ -97,7 +97,7 @@ export function setupWorld(provider: DojoProvider) {
 			return await provider.execute(
 				snAccount,
 				build_actions_startGame_calldata(gameId),
-				"dojo_starter",
+				"octa_flip",
 			);
 		} catch (error) {
 			console.error(error);

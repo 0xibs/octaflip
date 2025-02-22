@@ -1,4 +1,5 @@
-import logo from './../assets/images/flip.png'
+import logo from "./../assets/images/flip.png";
+import { ConnectLocalWallet } from "./ConnectLocalWallet";
 import { ConnectWallet } from "./ConnectWallet";
 const Header = () => {
   return (
@@ -22,7 +23,7 @@ const Header = () => {
           >
             Connect Wallet
           </button> */}
-          <ConnectWallet />
+          <ConnectLocalWallet />
         </nav>
       </header>
     </>

@@ -1,5 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useMemo } from "react";
 import player_avatar from "./../assets/images/user.png";
+import { useDojoSDK } from "@dojoengine/sdk/react";
+import { useAccount, useTransactionReceipt } from "@starknet-react/core";
+import { getEntityIdFromKeys, getEvents } from "@dojoengine/utils";
+import { GetTransactionReceiptResponse } from "starknet";
 
 const Board = () => {
   const [start, setStart] = useState<boolean>(false);
@@ -14,9 +18,27 @@ const Board = () => {
   const [opponent_tiles, setOpponentTiles] = useState<number[]>([
     1, 5, 4, 19, 23, 40, 30, 10, 22, 63, 62, 60, 56, 57,
   ]);
+
+  // ////////////////////////////////
+  const [game_id, setGameId] = useState("");
+  const { useDojoStore, client, sdk } = useDojoSDK();
+  const { account } = useAccount();
+  const state = useDojoStore((state) => state);
+  const entities = useDojoStore((state) => state.entities);
+
+  const entityId = useMemo(() => {
+    if (account) {
+      return getEntityIdFromKeys([BigInt(account.address)]);
+    }
+    return BigInt(0);
+  }, [account]);
+
+  // ///////////////////////////////
+
   const handleSetPlay = () => {
     setPlay(!play);
   };
+
   const removeFromMyTiles = (id: number) => {
     const tile_exist_in_my_tiles = my_tiles.indexOf(id);
     if (tile_exist_in_my_tiles !== -1) {
@@ -27,6 +49,7 @@ const Board = () => {
       }
     }
   };
+
   const removeFromOpponentTiles = (id: number) => {
     const tile_exist_in_opponent_tiles = opponent_tiles.indexOf(id);
     if (tile_exist_in_opponent_tiles !== -1) {
@@ -37,6 +60,7 @@ const Board = () => {
       }
     }
   };
+
   const handleSetTurn = (id: number) => {
     if (!play) {
       return;
@@ -48,23 +72,43 @@ const Board = () => {
     setMyTiles(my_tiles);
     setMyFlipCount(my_flip_count + 1);
   };
-  const handleStartGame = () => {
-    setStart(!start);
-    setTimeout(() => {
-      setGameStarted(true);
-      setStart(true)
-      setJoin(true)
-    }, 3000);
+
+  const handleStartGame = async () => {
+    // setStart(!start);
+    // setTimeout(() => {
+    //   setGameStarted(true);
+    //   setStart(true);
+    //   setJoin(true);
+    // }, 3000);
+
+    const { transaction_hash } = await client.actions.createGame(account);
+    getEvents(
+      await account?.waitForTransaction(transaction_hash, {
+        retryInterval: 100,
+      })
+    );
+
+    if (account) {
+      const tx: any = await account.getTransactionReceipt(transaction_hash);
+      setGameId(tx.events[0].data[3]);
+    }
+
+    if (game_id) {
+      setStart(!start);
+    }
   };
+
   const handleJoinGame = () => {
     setJoin(!join);
     setTimeout(() => {
       setGameStarted(true);
-      setStart(true)
-      setJoin(true)
+      setStart(true);
+      setJoin(true);
     }, 3000);
   };
+
   const tiles = Array.from({ length: 64 }, (_, i) => Number(i + 1));
+
   return (
     <>
       {!game_started && !start && !join && (
@@ -126,7 +170,7 @@ const Board = () => {
               readOnly
               className="outline-none w-full max-w-[400px] bg-transparent border-b-2 p-4 uppercase border-stone-600 text-center text-6xl text-stone-300 font-bold tracking-wide"
               placeholder="1234"
-              value={"1234"}
+              value={game_id}
             />
             <span
               className={`text-md py-2 px-4 text-center font-black text-stone-100 `}

@@ -63,10 +63,10 @@ mod tests {
         let caller = contract_address_const::<'player1'>();
         testing::set_contract_address(caller);
 
-        game_actions.create_game();
+        let game_id: u64 = game_actions.create_game();
 
-        let created_game: Game = world.read_model(1);
-        assert(created_game.id == 1, 'Wrong game ID');
+        let created_game: Game = world.read_model(game_id);
+        assert(created_game.id == game_id, 'Wrong game ID');
         assert(created_game.board_width == GRID_SIZE, 'Wrong board width');
         assert(created_game.board_height == GRID_SIZE, 'Wrong board height');
         assert(!created_game.is_live, 'Game should not be live');
