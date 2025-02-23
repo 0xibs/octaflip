@@ -35,10 +35,9 @@ const JoinGame = () => {
     try {
       setCreatingNewGame(true);
 
-      const { transaction_hash } = await client.actions.joinGame(
-        account,
-        gameId
-      );
+      const join = await client.actions.joinGame(account, gameId);
+
+      const transaction_hash = join.transaction_hash;
       getEvents(
         await account.waitForTransaction(transaction_hash, {
           retryInterval: 100,
@@ -93,3 +92,5 @@ const JoinGame = () => {
 };
 
 export default JoinGame;
+
+//
