@@ -6,14 +6,23 @@ import { toast } from "react-toastify";
 import { delay, extractErrorMessageFromJSONRPCError } from "../utils/helpers";
 import { useNavigate } from "react-router";
 import { DELAY_MILLISECONDS } from "../utils/constants";
-import { BigNumber } from "bignumber.js";
+import { Subscription } from "@dojoengine/torii-client";
+import {
+  KeysClause,
+  ParsedEntity,
+  SchemaType,
+  ToriiQueryBuilder,
+} from "@dojoengine/sdk";
 
 const NewGame = () => {
   const [gameId, setGameId] = useState<string>("");
   const [creatingNewGame, setCreatingNewGame] = useState(false);
   const [joiningGame, setJoiningGame] = useState(false);
-  const { client } = useDojoSDK();
+  const { client, sdk } = useDojoSDK();
   const { account } = useAccount();
+  const [events, setEvents] = useState<ParsedEntity<SchemaType>[]>([]);
+  const [subscription, setSubscription] = useState<Subscription | null>(null);
+
   const navigate = useNavigate();
 
   // Create and join game
@@ -97,6 +106,56 @@ const NewGame = () => {
 
     return () => {};
   }, [account]);
+
+  useEffect(() => {
+    async function subscribeHistoricalEvent() {
+      try {
+        const [e, s] = await sdk.subscribeEventQuery({
+          query: new ToriiQueryBuilder()
+            .withClause(KeysClause([], [undefined], "VariableLen").build())
+            .includeHashedKeys(),
+          callback: ({ data, error }) => {
+            if (data && data.length > 0) {
+              console.log("Data: ", data);
+
+              const emittedGameId =
+                data[0]?.models?.octa_flip?.PlayerJoined?.game_id;
+              const joinedPlayerAddress =
+                data[0]?.models?.octa_flip?.PlayerJoined?.player_address;
+
+              console.log("Emitted Game ID: ", emittedGameId);
+
+              const confirmPlayerJoined =
+                emittedGameId == gameId &&
+                joinedPlayerAddress != account?.address;
+
+              if (confirmPlayerJoined) {
+                navigate(`/play/${gameId}`, { replace: false });
+              }
+            }
+
+            if (error) {
+              console.error(error);
+            }
+          },
+        });
+        const events = e as unknown as ParsedEntity<SchemaType>[];
+
+        setEvents(events);
+        setSubscription(s);
+      } catch (error) {
+        setEvents([]);
+        if (subscription) {
+          subscription.free();
+        }
+        console.error(error);
+      }
+    }
+
+    if (account) {
+      subscribeHistoricalEvent();
+    }
+  }, [account, setEvents, sdk, gameId]);
 
   return (
     <div className="bg-stone-900 w-full min-h-screen h-full">

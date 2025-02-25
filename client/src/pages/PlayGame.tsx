@@ -1,7 +1,13 @@
-import React from "react";
+import { useNavigate } from "react-router";
 
 const PlayGame = () => {
-  return <div>PlayGame</div>;
+  const navigate = useNavigate();
+
+  return (
+    <div>
+      <button onClick={() => navigate("/new")}>New</button>
+    </div>
+  );
 };
 
 export default PlayGame;

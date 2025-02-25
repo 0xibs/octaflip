@@ -59,9 +59,9 @@ const JoinGame = () => {
     }
   };
 
-  useEffect(() => {
-    return () => {};
-  }, []);
+  // useEffect(() => {
+  //   return () => {};
+  // }, []);
 
   return (
     <div className="bg-stone-900 w-full min-h-screen h-full">
