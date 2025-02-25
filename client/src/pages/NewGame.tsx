@@ -112,7 +112,13 @@ const NewGame = () => {
       try {
         const [e, s] = await sdk.subscribeEventQuery({
           query: new ToriiQueryBuilder()
-            .withClause(KeysClause([], [undefined], "VariableLen").build())
+            .withClause(
+              KeysClause(
+                ["octa_flip-PlayerJoined"],
+                [gameId],
+                "VariableLen"
+              ).build()
+            )
             .includeHashedKeys(),
           callback: ({ data, error }) => {
             if (data && data.length > 0) {
@@ -155,7 +161,7 @@ const NewGame = () => {
     if (account) {
       subscribeHistoricalEvent();
     }
-  }, [account, setEvents, sdk, gameId]);
+  }, [account, setEvents, gameId, sdk]);
 
   return (
     <div className="bg-stone-900 w-full min-h-screen h-full">
