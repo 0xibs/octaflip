@@ -48,24 +48,22 @@ export const QUERY_PLAYERS_IN_GAME = gql`
 
 export const QUERY_TILES_OF_GAME = gql`
   query octaFlipTileModels($gameId: u64) {
-    {
-  octaFlipTileModels(limit: 64, where: {game_id: $gameId}) {
-    edges {
-      node {
-        x
-        y
-        game_id
-        claimed
+    octaFlipTileModels(limit: 64, where: { game_id: $gameId }) {
+      edges {
+        node {
+          x
+          y
+          game_id
+          claimed
+        }
       }
     }
-  }
-}
   }
 `;
 
 export const QUERY_PLAYER_AT_POSITION = gql`
-  query octaFlipPlayerInGameModels($gameId: u64, x: u8, y: u8) {
-    octaFlipPlayerInGameModels(where: { game_id: $gameId, x: $x, y: $y}) {
+  query octaFlipPlayerInGameModels($gameId: u64, $x: u8, $y: u8) {
+    octaFlipPlayerInGameModels(where: { game_id: $gameId, x: $x, y: $y }) {
       edges {
         node {
           game_id
