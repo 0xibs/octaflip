@@ -8,6 +8,7 @@ import App from "./App.tsx";
 import { init, SchemaType } from "@dojoengine/sdk";
 import { DojoSdkProvider } from "@dojoengine/sdk/react";
 // import { SchemaType, schema } from "./typescript/models.gen.ts";
+import { ApolloProvider } from "@apollo/client";
 
 import "./index.css";
 import { dojoConfig } from "../dojoConfig.ts";
@@ -18,6 +19,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import NewGame from "./pages/NewGame.tsx";
 import JoinGame from "./pages/JoinGame.tsx";
 import Board from "./components/Board";
+import apollo_client from "./apollo-client";
 
 /**
  * Initializes and bootstraps the Dojo application.
@@ -46,19 +48,25 @@ async function main() {
 
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
-      <DojoSdkProvider sdk={sdk} dojoConfig={dojoConfig} clientFn={setupWorld}>
-        <StarknetProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<App />} />
-              <Route path="new" element={<NewGame />} />
-              <Route path="join" element={<JoinGame />} />
-              <Route path="play/:gameId" element={<Board />} />
-            </Routes>
-            <ToastContainer />
-          </BrowserRouter>
-        </StarknetProvider>
-      </DojoSdkProvider>
+      <ApolloProvider client={apollo_client}>
+        <DojoSdkProvider
+          sdk={sdk}
+          dojoConfig={dojoConfig}
+          clientFn={setupWorld}
+        >
+          <StarknetProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<App />} />
+                <Route path="new" element={<NewGame />} />
+                <Route path="join" element={<JoinGame />} />
+                <Route path="play/:gameId" element={<Board />} />
+              </Routes>
+              <ToastContainer />
+            </BrowserRouter>
+          </StarknetProvider>
+        </DojoSdkProvider>
+      </ApolloProvider>
     </StrictMode>
   );
 }

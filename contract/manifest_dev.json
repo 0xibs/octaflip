@@ -1,7 +1,7 @@
 {
   "world": {
-    "class_hash": "0x2361c106e790c1d1bff8c9f73c9d84e9e3ac94b2d8df6db4ddd55e82c33a9b4",
-    "address": "0x4368a475c73b0f8ada02a5778dd0b425347550ab6b23ba7b961120116e08267",
+    "class_hash": "0x7c9469d45a9cdbab775035afb48e1fa73fb35ab059fcb9dfb0a301aa973e783",
+    "address": "0x5de74240ba5d4b5e9e6858e377993d3ae950f22cbd937be4100257286de47d4",
     "seed": "octa_flip",
     "name": "Octa Flip",
     "entrypoints": [
@@ -11,6 +11,7 @@
       "register_event",
       "register_model",
       "register_contract",
+      "register_library",
       "init_contract",
       "upgrade_event",
       "upgrade_model",
@@ -78,6 +79,10 @@
           {
             "name": "Unregistered",
             "type": "()"
+          },
+          {
+            "name": "Library",
+            "type": "(core::starknet::class_hash::ClassHash, core::felt252)"
           }
         ]
       },
@@ -358,6 +363,34 @@
             "outputs": [
               {
                 "type": "core::starknet::contract_address::ContractAddress"
+              }
+            ],
+            "state_mutability": "external"
+          },
+          {
+            "type": "function",
+            "name": "register_library",
+            "inputs": [
+              {
+                "name": "namespace",
+                "type": "core::byte_array::ByteArray"
+              },
+              {
+                "name": "class_hash",
+                "type": "core::starknet::class_hash::ClassHash"
+              },
+              {
+                "name": "name",
+                "type": "core::byte_array::ByteArray"
+              },
+              {
+                "name": "version",
+                "type": "core::byte_array::ByteArray"
+              }
+            ],
+            "outputs": [
+              {
+                "type": "core::starknet::class_hash::ClassHash"
               }
             ],
             "state_mutability": "external"
@@ -967,6 +1000,28 @@
       },
       {
         "type": "event",
+        "name": "dojo::world::world_contract::world::LibraryRegistered",
+        "kind": "struct",
+        "members": [
+          {
+            "name": "name",
+            "type": "core::byte_array::ByteArray",
+            "kind": "key"
+          },
+          {
+            "name": "namespace",
+            "type": "core::byte_array::ByteArray",
+            "kind": "key"
+          },
+          {
+            "name": "class_hash",
+            "type": "core::starknet::class_hash::ClassHash",
+            "kind": "data"
+          }
+        ]
+      },
+      {
+        "type": "event",
         "name": "dojo::world::world_contract::world::EventEmitted",
         "kind": "struct",
         "members": [
@@ -1207,6 +1262,11 @@
             "kind": "nested"
           },
           {
+            "name": "LibraryRegistered",
+            "type": "dojo::world::world_contract::world::LibraryRegistered",
+            "kind": "nested"
+          },
+          {
             "name": "EventEmitted",
             "type": "dojo::world::world_contract::world::EventEmitted",
             "kind": "nested"
@@ -1252,7 +1312,7 @@
   },
   "contracts": [
     {
-      "address": "0x7aa216c2bd13ba052681eeee2ba51ff1a3503e0e418fbeb88f2182af723f647",
+      "address": "0x6cf7d1f14c0a11e876fb3e60a7b196271956866de80da3ef59c2538d1ae6812",
       "class_hash": "0x3c6fe82560cc17b2fd77a32e53988ab4bf8cae2f577e615257e4b8e0ac3199f",
       "abi": [
         {
@@ -1514,6 +1574,7 @@
       ]
     }
   ],
+  "libraries": [],
   "models": [
     {
       "members": [],
@@ -1529,19 +1590,19 @@
     },
     {
       "members": [],
-      "class_hash": "0x5253dc01c661f6e2f88be32ccbd87afa83802c3e146f262c7b994349e6a0e58",
+      "class_hash": "0x3223e72d78010df65629ccc6d6c79146e2e1dc2c9912f429da4b3178991a531",
       "tag": "octa_flip-PlayerAtPosition",
       "selector": "0x3725b070ee58746ed644b73956d46d5a329179d026c69d53b8a9becf83321b9"
     },
     {
       "members": [],
-      "class_hash": "0x5a69127a48c7831e8f5e367a97b53dae4c0c8bf11554f5e6d8d7cd1d042b560",
+      "class_hash": "0x7672cd447fa83c32089eacc94b793146c55826504bb5cdc44087bbf8b64aa8",
       "tag": "octa_flip-PlayerInGame",
       "selector": "0x3368d9434d6716bf802ce4af9ab3f2dd2010cf1179fcc2b6eea30e842063b96"
     },
     {
       "members": [],
-      "class_hash": "0x634a91fa4ed92d9f20a35807cfb2f8534de5b74d9dea6a38dd9a5e4930569d7",
+      "class_hash": "0x766cfc770b3aaf1ea98ecfe9da3e399a6e0837c93265855a6e567fe633ea4b2",
       "tag": "octa_flip-Tile",
       "selector": "0x4240445a40f4bcd92c87e32bf29f431f2ce2c93163f0d461312bef7a73bd42a"
     }
@@ -1555,7 +1616,7 @@
     },
     {
       "members": [],
-      "class_hash": "0x71d12a5c8a50d656f54162b62044fbb6b86949b71924cbf4317a6f0c5adad05",
+      "class_hash": "0xb4bdac8b75a103db0b3c66f8b4434e64b2211eaa9d006cbb29b6b021ab4fc",
       "tag": "octa_flip-GameEnded",
       "selector": "0x1e0e56909cbb93977738c998383c2cb09c89d2fbab6fea65269877b5e51cad4"
     },
@@ -1567,15 +1628,16 @@
     },
     {
       "members": [],
-      "class_hash": "0x38ff55159e75a2955098d8afb6a9fe0193c5352956032db39f07152db0d6abb",
+      "class_hash": "0x7fd511e87f68519499519377ad54401d063c0c765bf90afd7150903ed5eb4c5",
       "tag": "octa_flip-PlayerJoined",
       "selector": "0x666b015cf8dc8ec243e5563f4139da761304c64307c97797d0e3307c2b83924"
     },
     {
       "members": [],
-      "class_hash": "0x62f98c93e7c045348b0fd19aabb3d2a157e8141118bc91516d0dac4f026d882",
+      "class_hash": "0x73bdabaa6c447f594475f8c3e64a620cadfd5fe0f3a5263a78750fa8ca828f1",
       "tag": "octa_flip-TileClaim",
       "selector": "0x79dd84075220c07fa8b25fea8c2f760deee03640bc7724d4fcce6711c291b17"
     }
-  ]
+  ],
+  "external_contracts": []
 }

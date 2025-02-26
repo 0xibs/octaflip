@@ -7,3 +7,5 @@ export const RELEASE_TORII_URL =
 export const RELEASE_RPC_URL = "https://api.cartridge.gg/x/octaflipdev1/katana";
 
 export const DELAY_MILLISECONDS = 3500; // 3.5 seconds
+
+export const QUERY_LIMIT = 1000000;

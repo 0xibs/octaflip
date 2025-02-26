@@ -2,29 +2,36 @@ import { useDojoSDK } from "@dojoengine/sdk/react";
 import { getEvents } from "@dojoengine/utils";
 import { useAccount } from "@starknet-react/core";
 import { useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
 import { toast } from "react-toastify";
 import { delay, extractErrorMessageFromJSONRPCError } from "../utils/helpers";
 import { useNavigate } from "react-router";
 import { DELAY_MILLISECONDS } from "../utils/constants";
-import { Subscription } from "@dojoengine/torii-client";
-import {
-  KeysClause,
-  ParsedEntity,
-  SchemaType,
-  ToriiQueryBuilder,
-} from "@dojoengine/sdk";
-import { addAddressPadding } from "starknet";
+import Header from "../components/Header";
+import { QUERY_PLAYERS_IN_GAME } from "../utils/queries";
 
 const NewGame = () => {
   const [gameId, setGameId] = useState<string>("");
   const [creatingNewGame, setCreatingNewGame] = useState(false);
   const [joiningGame, setJoiningGame] = useState(false);
-  const { client, sdk } = useDojoSDK();
+  const { client } = useDojoSDK();
   const { account } = useAccount();
-  const [events, setEvents] = useState<ParsedEntity<SchemaType>[]>([]);
-  const [subscription, setSubscription] = useState<Subscription | null>(null);
 
   const navigate = useNavigate();
+
+  const {
+    data: queryPlayersInGameData,
+    startPolling: startPollingPlayersInGame,
+  } = useQuery(QUERY_PLAYERS_IN_GAME, {
+    variables: { gameId },
+  });
+
+  const playersInGame =
+    queryPlayersInGameData?.octaFlipPlayerInGameModels?.edges;
+
+  if (playersInGame?.length > 1) {
+    navigate(`/play/${gameId}`);
+  }
 
   // Create and join game
   const createNewGame = async () => {
@@ -96,6 +103,8 @@ const NewGame = () => {
     }
   };
 
+  startPollingPlayersInGame(100);
+
   useEffect(() => {
     const createAndJoinGame = async () => {
       await createNewGame().then(async (gameId) => await joinGame(gameId));
@@ -108,109 +117,48 @@ const NewGame = () => {
     return () => {};
   }, [account]);
 
-  useEffect(() => {
-    async function subscribeHistoricalEvent() {
-      try {
-        const [e, s] = await sdk.subscribeEventQuery({
-          query: new ToriiQueryBuilder()
-            .withClause(
-              KeysClause(
-                ["octa_flip-PlayerJoined"],
-                [gameId],
-                "VariableLen"
-              ).build()
-            )
-            .includeHashedKeys(),
-          callback: ({ data, error }) => {
-            if (data && data.length > 0) {
-              console.log("Data: ", data);
-
-              if (!account?.address) {
-                toast.error("account not connected");
-                return;
-              }
-
-              const emittedGameId =
-                data[0]?.models?.octa_flip?.PlayerJoined?.game_id;
-              const joinedPlayerAddress =
-                data[0]?.models?.octa_flip?.PlayerJoined?.player_address;
-
-              console.log("Emitted Game ID: ", emittedGameId);
-
-              console.log("PJA: ", joinedPlayerAddress);
-              console.log("AD: ", addAddressPadding(account?.address));
-
-              const confirmPlayerJoined =
-                emittedGameId == gameId &&
-                joinedPlayerAddress != addAddressPadding(account.address);
-
-              if (confirmPlayerJoined) {
-                navigate(`/play/${gameId}`, { replace: false });
-              }
-            }
-
-            if (error) {
-              console.error(error);
-            }
-          },
-        });
-        const events = e as unknown as ParsedEntity<SchemaType>[];
-
-        setEvents(events);
-        setSubscription(s);
-      } catch (error) {
-        setEvents([]);
-        if (subscription) {
-          subscription.free();
-        }
-        console.error(error);
-      }
-    }
-
-    if (account) {
-      subscribeHistoricalEvent();
-    }
-  }, [account, setEvents, gameId, sdk]);
-
   return (
-    <div className="bg-stone-900 w-full min-h-screen h-full">
-      {creatingNewGame ? (
-        <div className="text-white text-2xl w-full h-screen flex justify-center items-center">
-          Creating new game...
-        </div>
-      ) : (
-        <div
-          className={`w-full h-full min-h-[80vh] justify-center items-center mx-auto flex flex-col space-y-6 relative`}
-        >
-          <div className="w-full mx-auto flex flex-col items-center justify-center space-y-8">
-            <span
-              className={`text-md py-2 px-4 text-center font-black text-stone-600 `}
-            >
-              Share game code..
-            </span>
-            <input
-              type="text"
-              readOnly
-              className="outline-none w-full max-w-[400px] bg-transparent border-b-2 p-4 uppercase border-stone-600 text-center text-6xl text-stone-300 font-bold tracking-wide"
-              placeholder="1234"
-              value={gameId}
-            />
-            <span
-              className={`text-md py-2 px-4 text-center font-black text-stone-100 `}
-            >
-              Waiting for opponent
-            </span>
+    <>
+      <Header />
+      <div className="bg-stone-900 w-full min-h-screen h-full">
+        {creatingNewGame ? (
+          <div className="text-white text-2xl w-full h-screen flex justify-center items-center">
+            Creating new game...
           </div>
-          <button
-            type="button"
-            onClick={async () => navigate(`/play/${gameId}`)}
-            className={`text-md cursor-pointer py-2 px-4 sm:text-2xl sm:py-4 sm:px-8 text-center font-black text-stone-100 bg-stone-600 rounded-xl border-2 border-stone-600 shadow-inner`}
+        ) : (
+          <div
+            className={`w-full h-full min-h-[80vh] justify-center items-center mx-auto flex flex-col space-y-6 relative`}
           >
-            PLAY
-          </button>
-        </div>
-      )}
-    </div>
+            <div className="w-full mx-auto flex flex-col items-center justify-center space-y-8">
+              <span
+                className={`text-md py-2 px-4 text-center font-black text-stone-600 `}
+              >
+                Share game code..
+              </span>
+              <input
+                type="text"
+                readOnly
+                className="outline-none w-full max-w-[400px] bg-transparent border-b-2 p-4 uppercase border-stone-600 text-center text-6xl text-stone-300 font-bold tracking-wide"
+                placeholder="1234"
+                value={gameId}
+              />
+              <span
+                className={`text-md py-2 px-4 text-center font-black text-stone-100 `}
+              >
+                Waiting for opponent
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={async () => navigate(`/play/${gameId}`)}
+              className={`text-md cursor-pointer py-2 px-4 sm:text-2xl sm:py-4 sm:px-8 text-center font-black text-stone-100 bg-stone-600 rounded-xl border-2 border-stone-600 shadow-inner`}
+            >
+              PLAY
+            </button>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

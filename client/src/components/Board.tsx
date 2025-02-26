@@ -1,39 +1,87 @@
-import React, { useState, useContext, useMemo } from "react";
+import { useState } from "react";
 import player_avatar from "./../assets/images/user.png";
+import { useQuery } from "@apollo/client";
+import { useParams } from "react-router";
+import Header from "./Header";
+import { QUERY_PLAYERS_IN_GAME, QUERY_SINGLE_GAME } from "../utils/queries";
+import { useAccount } from "@starknet-react/core";
+import { toast } from "react-toastify";
 import { useDojoSDK } from "@dojoengine/sdk/react";
-import { useAccount, useTransactionReceipt } from "@starknet-react/core";
-import { getEntityIdFromKeys, getEvents } from "@dojoengine/utils";
-import { GetTransactionReceiptResponse } from "starknet";
+import { getEvents } from "@dojoengine/utils";
+import { extractErrorMessageFromJSONRPCError } from "../utils/helpers";
 
 const Board = () => {
-  const [start, setStart] = useState<boolean>(false);
-  const [join, setJoin] = useState<boolean>(false);
-  const [game_started, setGameStarted] = useState<boolean>(false);
+  const { gameId } = useParams();
+
+  const { account } = useAccount();
+  const { client, sdk } = useDojoSDK();
   const [play, setPlay] = useState<boolean>(false);
   const [turn, setTurn] = useState<number>(0);
   const [my_flip_count, setMyFlipCount] = useState<number>(0);
-  const [opponent_flip_count, setOpponentFlipCount] = useState<number>(14);
-  const [player, setPlayer] = useState<number>(0);
+  const [opponent_flip_count] = useState<number>(14);
   const [my_tiles, setMyTiles] = useState<number[]>([]);
   const [opponent_tiles, setOpponentTiles] = useState<number[]>([
     1, 5, 4, 19, 23, 40, 30, 10, 22, 63, 62, 60, 56, 57,
   ]);
 
-  // ////////////////////////////////
-  const [game_id, setGameId] = useState("");
-  const { useDojoStore, client, sdk } = useDojoSDK();
-  const { account } = useAccount();
-  const state = useDojoStore((state) => state);
-  const entities = useDojoStore((state) => state.entities);
+  const {
+    data: querySingleGameData,
+    startPolling: startPollingSingleGameData,
+  } = useQuery(QUERY_SINGLE_GAME, {
+    variables: { gameId },
+  });
 
-  const entityId = useMemo(() => {
-    if (account) {
-      return getEntityIdFromKeys([BigInt(account.address)]);
+  const {
+    data: queryPlayersInGameData,
+    startPolling: startPollingPlayersInGame,
+  } = useQuery(QUERY_PLAYERS_IN_GAME, {
+    variables: { gameId },
+  });
+
+  const tiles = Array.from({ length: 64 }, (_, i) => Number(i + 1));
+  const game = querySingleGameData?.octaFlipGameModels?.edges[0]?.node;
+  const gameIsOngoing = game?.is_live;
+  const playersInGame =
+    queryPlayersInGameData?.octaFlipPlayerInGameModels?.edges;
+  const waiting = playersInGame?.length < 2 ? true : false;
+
+  async function startGame() {
+    if (!account) {
+      toast.error("Account not connected");
+      return;
     }
-    return BigInt(0);
-  }, [account]);
 
-  // ///////////////////////////////
+    if (!gameId) {
+      toast.error("Invalid or empty game Id");
+      return;
+    }
+
+    try {
+      const { transaction_hash } = await client.actions.startGame(
+        account,
+        gameId
+      );
+
+      getEvents(
+        await account.waitForTransaction(transaction_hash, {
+          retryInterval: 100,
+        })
+      );
+
+      const tx = await account.getTransactionReceipt(transaction_hash);
+
+      if (!tx.isSuccess()) {
+        toast.error("Failed to join");
+        throw new Error("Failed to join game");
+      }
+    } catch (e: any) {
+      const errorMessage = extractErrorMessageFromJSONRPCError(
+        JSON.stringify(e)
+      );
+      toast.error(errorMessage);
+      console.error(e);
+    }
+  }
 
   const handleSetPlay = () => {
     setPlay(!play);
@@ -73,49 +121,46 @@ const Board = () => {
     setMyFlipCount(my_flip_count + 1);
   };
 
-  const handleJoinGame = () => {
-    setJoin(!join);
-    setTimeout(() => {
-      setGameStarted(true);
-      setStart(true);
-      setJoin(true);
-    }, 3000);
-  };
+  startPollingPlayersInGame(100);
+  startPollingSingleGameData(100);
 
-  const tiles = Array.from({ length: 64 }, (_, i) => Number(i + 1));
+  // useEffect(() => {
+
+  //   return () => {};
+  // }, [gameId]);
 
   return (
     <>
-      <div className="bg-stone-900 w-full min-h-screen h-full">
+      <Header />
+      <div className="bg-stone-900 flex justify-center pt-[150px] w-full min-h-screen h-full">
         <div
           className={`min-w-[300px] min-h-[300px] h-full w-full max-h-[640px] max-w-[640px] flex flex-col space-y-6 relative`}
         >
           <div className="w-full mx-auto flex items-center justify-center">
             <button
               type="button"
-              onClick={() => handleSetPlay()}
+              onClick={async () => await startGame()}
+              disabled={waiting || gameIsOngoing}
               className={`w-[200px] text-2xl p-4 text-center font-black text-stone-100 bg-stone-600 rounded-xl border-2 border-stone-600 shadow-inner`}
             >
-              {play ? "PAUSE" : "PLAY"}
+              {waiting
+                ? "Waiting for opponent"
+                : gameIsOngoing
+                ? "Game is ongoing..."
+                : "Start"}
             </button>
           </div>
           <div
             className={`w-full h-full bg-stone-200 grid grid-cols-8 gap-1 md:gap-2 relative rounded-md border-8`}
           >
-            {!play && (
+            {!gameIsOngoing && (
               <div className="absolute inset-0 bg-stone-900/80 z-[9999]"></div>
             )}
             {tiles.map((tile, index) => (
               <button
                 onClick={() => handleSetTurn(tile)}
                 key={index}
-                className={`w-full py-6 sm:py-8 ${
-                  !my_tiles.includes(tile) && !opponent_tiles.includes(tile)
-                    ? "bg-stone-600"
-                    : my_tiles.includes(tile)
-                    ? "bg-lime-500"
-                    : "bg-amber-500"
-                } cursor-pointer items-center flex justify-center mx-auto text-lg md:text-xl font-black text-stone-100  transition duration-500 ease-in-out transform hover:scale-100 rounded-md`}
+                className={`w-full py-6 sm:py-8 bg-stone-600 cursor-pointer items-center flex justify-center mx-auto text-lg md:text-xl font-black text-stone-100  transition duration-500 ease-in-out transform hover:scale-100 rounded-md`}
               >
                 {/* {tile} */}
               </button>
@@ -128,7 +173,7 @@ const Board = () => {
               </div>
               <div className="w-full flex flex-col space-y-0">
                 <span className="text-sm uppercase font-semibold text-stone-200">
-                  Player 1
+                  You (Player 1)
                 </span>
                 <div className="w-full flex flex-row space-x-3 items-center justify-start">
                   <div className="w-auto flex flex-row space-x-1 items-center">
