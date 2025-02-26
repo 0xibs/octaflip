@@ -3,12 +3,18 @@ import player_avatar from "./../assets/images/user.png";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import Header from "./Header";
-import { QUERY_PLAYERS_IN_GAME, QUERY_SINGLE_GAME } from "../utils/queries";
+import {
+  QUERY_PLAYERS_IN_GAME,
+  QUERY_PLAYER_AT_POSITION,
+  QUERY_SINGLE_GAME,
+  QUERY_TILES_OF_GAME,
+} from "../utils/queries";
 import { useAccount } from "@starknet-react/core";
 import { toast } from "react-toastify";
 import { useDojoSDK } from "@dojoengine/sdk/react";
 import { getEvents } from "@dojoengine/utils";
 import { extractErrorMessageFromJSONRPCError } from "../utils/helpers";
+import { CountdownTimer } from "./Countdown";
 
 const Board = () => {
   const { gameId } = useParams();
@@ -38,12 +44,27 @@ const Board = () => {
     variables: { gameId },
   });
 
+  const { data: queryTilesOfGameData, startPolling: startPollingTilesOfGame } =
+    useQuery(QUERY_TILES_OF_GAME, {
+      variables: { gameId },
+    });
+
+  const {
+    data: queryPlayerAtPositionData,
+    startPolling: startPollingPlayerAtPosition,
+  } = useQuery(QUERY_PLAYER_AT_POSITION, {
+    variables: { gameId },
+  });
+
   const tiles = Array.from({ length: 64 }, (_, i) => Number(i + 1));
   const game = querySingleGameData?.octaFlipGameModels?.edges[0]?.node;
   const gameIsOngoing = game?.is_live;
   const playersInGame =
     queryPlayersInGameData?.octaFlipPlayerInGameModels?.edges;
   const waiting = playersInGame?.length < 2 ? true : false;
+
+  const startTime = Math.floor(Date.now() / 1000); // Current UTC time in seconds
+  const duration = 3600; // 1-minute countdown
 
   async function startGame() {
     if (!account) {
@@ -83,10 +104,6 @@ const Board = () => {
     }
   }
 
-  const handleSetPlay = () => {
-    setPlay(!play);
-  };
-
   const removeFromMyTiles = (id: number) => {
     const tile_exist_in_my_tiles = my_tiles.indexOf(id);
     if (tile_exist_in_my_tiles !== -1) {
@@ -121,8 +138,44 @@ const Board = () => {
     setMyFlipCount(my_flip_count + 1);
   };
 
+  async function claimTile(x: string, y: string) {
+    if (!account) {
+      toast.error("Account not connected");
+      return;
+    }
+
+    if (!gameId) {
+      toast.error("Invalid or empty game Id");
+      return;
+    }
+
+    try {
+      const claim = await client.actions.claimTile(account, gameId, x, y);
+
+      const transaction_hash = claim.transaction_hash;
+      getEvents(
+        await account.waitForTransaction(transaction_hash, {
+          retryInterval: 100,
+        })
+      );
+
+      const tx = await account.getTransactionReceipt(transaction_hash);
+      if (!tx.isSuccess()) {
+        toast.error("Failed to claim tile");
+        throw new Error("Failed to claim tile");
+      }
+    } catch (e: any) {
+      const errorMessage = extractErrorMessageFromJSONRPCError(
+        JSON.stringify(e)
+      );
+      toast.error(errorMessage);
+    }
+  }
+
   startPollingPlayersInGame(100);
   startPollingSingleGameData(100);
+  startPollingPlayerAtPosition(100);
+  startPollingTilesOfGame(100);
 
   // useEffect(() => {
 
@@ -189,9 +242,8 @@ const Board = () => {
                 </div>
               </div>
             </div>
-            <div className="w-auto text-2xl font-medium text-stone-100">
-              00:30
-            </div>
+            <CountdownTimer startTime={startTime} duration={duration} />
+
             <div className="flex flex-col sm:flex-row justify-center sm:justify-start items-center space-y-2 space-x-0 sm:space-y-0 sm:space-x-2">
               <div className="w-12 h-12 rounded-full bg-amber-300 border-2 border-amber-600 flex-none">
                 <img src={player_avatar} className="w-full h-full" />

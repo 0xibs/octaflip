@@ -1,7 +1,7 @@
 import { useDojoSDK } from "@dojoengine/sdk/react";
-import { getEntityIdFromKeys, getEvents } from "@dojoengine/utils";
+import { getEvents } from "@dojoengine/utils";
 import { useAccount } from "@starknet-react/core";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { extractErrorMessageFromJSONRPCError } from "../utils/helpers";
@@ -9,19 +9,10 @@ import { extractErrorMessageFromJSONRPCError } from "../utils/helpers";
 const JoinGame = () => {
   const [gameId, setGameId] = useState("");
   const [joiningGame, setJoiningGame] = useState(false);
-  const { useDojoStore, client } = useDojoSDK();
+  const { client } = useDojoSDK();
   const { account } = useAccount();
-  const state = useDojoStore((state) => state);
-  const entities = useDojoStore((state) => state.entities);
 
   const navigate = useNavigate();
-
-  const entityId = useMemo(() => {
-    if (account) {
-      return getEntityIdFromKeys([BigInt(account.address)]);
-    }
-    return BigInt(0);
-  }, [account]);
 
   const joinGame = async () => {
     if (!gameId) {
@@ -49,9 +40,6 @@ const JoinGame = () => {
         toast.error("Failed to join");
         throw new Error("Failed to join game");
       }
-
-      // toast.success("Joined game successfully");
-      // Direct player to the Gameplay page
 
       navigate(`/play/${gameId}`, { replace: false });
     } catch (e: any) {

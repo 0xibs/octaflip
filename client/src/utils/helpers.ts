@@ -1,3 +1,5 @@
+import { ONE_HOUR_IN_SECONDS } from "./constants";
+
 // Function to extract the error message from a JSONRPC error object
 export const extractErrorMessageFromJSONRPCError = (errorStr: string) => {
   try {
@@ -19,4 +21,13 @@ export const extractErrorMessageFromJSONRPCError = (errorStr: string) => {
 export async function delay(ms: number) {
   if (!ms) return;
   return await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export function formatTime(seconds: number) {
+  if (seconds > ONE_HOUR_IN_SECONDS) {
+    throw new Error(`Seconds cannot exceed ${ONE_HOUR_IN_SECONDS}`);
+  }
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins}:${secs.toString().padStart(2, "0")}`;
 }
