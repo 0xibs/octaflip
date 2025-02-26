@@ -13,6 +13,7 @@ import {
   SchemaType,
   ToriiQueryBuilder,
 } from "@dojoengine/sdk";
+import { addAddressPadding } from "starknet";
 
 const NewGame = () => {
   const [gameId, setGameId] = useState<string>("");
@@ -124,6 +125,11 @@ const NewGame = () => {
             if (data && data.length > 0) {
               console.log("Data: ", data);
 
+              if (!account?.address) {
+                toast.error("account not connected");
+                return;
+              }
+
               const emittedGameId =
                 data[0]?.models?.octa_flip?.PlayerJoined?.game_id;
               const joinedPlayerAddress =
@@ -131,9 +137,12 @@ const NewGame = () => {
 
               console.log("Emitted Game ID: ", emittedGameId);
 
+              console.log("PJA: ", joinedPlayerAddress);
+              console.log("AD: ", addAddressPadding(account?.address));
+
               const confirmPlayerJoined =
                 emittedGameId == gameId &&
-                joinedPlayerAddress != account?.address;
+                joinedPlayerAddress != addAddressPadding(account.address);
 
               if (confirmPlayerJoined) {
                 navigate(`/play/${gameId}`, { replace: false });
@@ -192,6 +201,13 @@ const NewGame = () => {
               Waiting for opponent
             </span>
           </div>
+          <button
+            type="button"
+            onClick={async () => navigate(`/play/${gameId}`)}
+            className={`text-md cursor-pointer py-2 px-4 sm:text-2xl sm:py-4 sm:px-8 text-center font-black text-stone-100 bg-stone-600 rounded-xl border-2 border-stone-600 shadow-inner`}
+          >
+            PLAY
+          </button>
         </div>
       )}
     </div>

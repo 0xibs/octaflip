@@ -73,31 +73,6 @@ const Board = () => {
     setMyFlipCount(my_flip_count + 1);
   };
 
-  const handleStartGame = async () => {
-    // setStart(!start);
-    // setTimeout(() => {
-    //   setGameStarted(true);
-    //   setStart(true);
-    //   setJoin(true);
-    // }, 3000);
-
-    const { transaction_hash } = await client.actions.createGame(account);
-    getEvents(
-      await account?.waitForTransaction(transaction_hash, {
-        retryInterval: 100,
-      })
-    );
-
-    if (account) {
-      const tx: any = await account.getTransactionReceipt(transaction_hash);
-      setGameId(tx.events[0].data[3]);
-    }
-
-    if (game_id) {
-      setStart(!start);
-    }
-  };
-
   const handleJoinGame = () => {
     setJoin(!join);
     setTimeout(() => {
@@ -111,7 +86,7 @@ const Board = () => {
 
   return (
     <>
-      {game_started && start && join && (
+      <div className="bg-stone-900 w-full min-h-screen h-full">
         <div
           className={`min-w-[300px] min-h-[300px] h-full w-full max-h-[640px] max-w-[640px] flex flex-col space-y-6 relative`}
         >
@@ -196,7 +171,7 @@ const Board = () => {
             </div>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 };

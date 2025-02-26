@@ -1,8 +1,8 @@
 import { useDojoSDK } from "@dojoengine/sdk/react";
 import { getEntityIdFromKeys, getEvents } from "@dojoengine/utils";
 import { useAccount } from "@starknet-react/core";
-import React, { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router";
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { extractErrorMessageFromJSONRPCError } from "../utils/helpers";
 
@@ -13,6 +13,8 @@ const JoinGame = () => {
   const { account } = useAccount();
   const state = useDojoStore((state) => state);
   const entities = useDojoStore((state) => state.entities);
+
+  const navigate = useNavigate();
 
   const entityId = useMemo(() => {
     if (account) {
@@ -48,7 +50,10 @@ const JoinGame = () => {
         throw new Error("Failed to join game");
       }
 
-      toast.success("Joined game successfully");
+      // toast.success("Joined game successfully");
+      // Direct player to the Gameplay page
+
+      navigate(`/play/${gameId}`, { replace: false });
     } catch (e: any) {
       const errorMessage = extractErrorMessageFromJSONRPCError(
         JSON.stringify(e)
@@ -90,5 +95,3 @@ const JoinGame = () => {
 };
 
 export default JoinGame;
-
-//

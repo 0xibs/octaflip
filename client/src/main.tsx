@@ -17,7 +17,7 @@ import { schema } from "./dojo/typescript/models.gen.ts";
 import { BrowserRouter, Route, Routes } from "react-router";
 import NewGame from "./pages/NewGame.tsx";
 import JoinGame from "./pages/JoinGame.tsx";
-import PlayGame from "./pages/PlayGame.tsx";
+import Board from "./components/Board";
 
 /**
  * Initializes and bootstraps the Dojo application.
@@ -53,7 +53,7 @@ async function main() {
               <Route path="/" element={<App />} />
               <Route path="new" element={<NewGame />} />
               <Route path="join" element={<JoinGame />} />
-              <Route path="play/:gameId" element={<PlayGame />} />
+              <Route path="play/:gameId" element={<Board />} />
             </Routes>
             <ToastContainer />
           </BrowserRouter>
