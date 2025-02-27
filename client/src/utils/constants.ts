@@ -11,3 +11,5 @@ export const DELAY_MILLISECONDS = 3500; // 3.5 seconds
 export const QUERY_LIMIT = 1000000;
 
 export const ONE_HOUR_IN_SECONDS = 3600;
+
+export const GRID_SIZE = 8;

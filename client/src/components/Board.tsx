@@ -15,12 +15,14 @@ import { useDojoSDK } from "@dojoengine/sdk/react";
 import { getEvents } from "@dojoengine/utils";
 import { extractErrorMessageFromJSONRPCError } from "../utils/helpers";
 import { CountdownTimer } from "./Countdown";
+import Tile from "./Tile";
+import { GRID_SIZE } from "../utils/constants";
 
 const Board = () => {
   const { gameId } = useParams();
 
   const { account } = useAccount();
-  const { client, sdk } = useDojoSDK();
+  const { client } = useDojoSDK();
   const [play, setPlay] = useState<boolean>(false);
   const [turn, setTurn] = useState<number>(0);
   const [my_flip_count, setMyFlipCount] = useState<number>(0);
@@ -56,12 +58,15 @@ const Board = () => {
     variables: { gameId },
   });
 
-  const tiles = Array.from({ length: 64 }, (_, i) => Number(i + 1));
+  const xCoord = Array.from({ length: GRID_SIZE }, (_, i) => Number(i + 1));
+  const yCoord = Array.from({ length: GRID_SIZE }, (_, i) => Number(i + 1));
+
   const game = querySingleGameData?.octaFlipGameModels?.edges[0]?.node;
   const gameIsOngoing = game?.is_live;
   const playersInGame =
     queryPlayersInGameData?.octaFlipPlayerInGameModels?.edges;
   const waiting = playersInGame?.length < 2 ? true : false;
+  const tilesOfGame = queryTilesOfGameData?.octaFlipTileModels?.edges;
 
   const startTime = Math.floor(Date.now() / 1000); // Current UTC time in seconds
   const duration = 3600; // 1-minute countdown
@@ -104,40 +109,6 @@ const Board = () => {
     }
   }
 
-  const removeFromMyTiles = (id: number) => {
-    const tile_exist_in_my_tiles = my_tiles.indexOf(id);
-    if (tile_exist_in_my_tiles !== -1) {
-      const new_my_tiles = my_tiles.filter((tile) => tile !== id);
-      setMyTiles(new_my_tiles);
-      if (id == turn) {
-        setTurn(0);
-      }
-    }
-  };
-
-  const removeFromOpponentTiles = (id: number) => {
-    const tile_exist_in_opponent_tiles = opponent_tiles.indexOf(id);
-    if (tile_exist_in_opponent_tiles !== -1) {
-      const new_opponent_tiles = opponent_tiles.filter((tile) => tile !== id);
-      setOpponentTiles(new_opponent_tiles);
-      if (id == turn) {
-        setTurn(0);
-      }
-    }
-  };
-
-  const handleSetTurn = (id: number) => {
-    if (!play) {
-      return;
-    }
-    removeFromMyTiles(id);
-    removeFromOpponentTiles(id);
-    setTurn(id);
-    my_tiles.push(id);
-    setMyTiles(my_tiles);
-    setMyFlipCount(my_flip_count + 1);
-  };
-
   async function claimTile(x: string, y: string) {
     if (!account) {
       toast.error("Account not connected");
@@ -176,12 +147,6 @@ const Board = () => {
   startPollingSingleGameData(100);
   startPollingPlayerAtPosition(100);
   startPollingTilesOfGame(100);
-
-  // useEffect(() => {
-
-  //   return () => {};
-  // }, [gameId]);
-
   return (
     <>
       <Header />
@@ -209,15 +174,23 @@ const Board = () => {
             {!gameIsOngoing && (
               <div className="absolute inset-0 bg-stone-900/80 z-[9999]"></div>
             )}
-            {tiles.map((tile, index) => (
-              <button
-                onClick={() => handleSetTurn(tile)}
-                key={index}
-                className={`w-full py-6 sm:py-8 bg-stone-600 cursor-pointer items-center flex justify-center mx-auto text-lg md:text-xl font-black text-stone-100  transition duration-500 ease-in-out transform hover:scale-100 rounded-md`}
-              >
-                {/* {tile} */}
-              </button>
-            ))}
+            {xCoord.map((x) =>
+              yCoord.map((y) => (
+                <Tile
+                  key={x + y}
+                  x={x - 1}
+                  y={y - 1}
+                  claimTile={claimTile}
+                  tilesOfGame={tilesOfGame ? tilesOfGame : null}
+                  playerAddress={account ? account.address : null}
+                  opponentAddress={
+                    playersInGame
+                      ? playersInGame[0]?.node?.player_address
+                      : null
+                  }
+                />
+              ))
+            )}
           </div>
           <div className="w-full flex flex-row space-x-2 items-center justify-between">
             <div className="flex flex-col sm:flex-row justify-center sm:justify-start items-center space-y-2 space-x-0 sm:space-y-0 sm:space-x-2">
