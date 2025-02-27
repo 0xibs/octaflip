@@ -1,2 +1,6 @@
 target
-dojo_mainnet.toml
+deploy.sh
+.env.sepolia
+.env.mainnet
+deploy-sepolia.sh
+deploy-mainnet.sh

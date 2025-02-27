@@ -7,46 +7,28 @@ import {
   starkscan,
 } from "@starknet-react/core";
 import ControllerConnector from "@cartridge/connector/controller";
-import { SessionPolicies } from "@cartridge/controller";
 import { dojoConfig } from "../dojoConfig";
 import {
   predeployedAccounts,
   type PredeployedAccountsConnector,
 } from "@dojoengine/predeployed-connector";
-import { ENV } from "./utils/constants";
-
-// Define your contract addresses
-const ETH_TOKEN_ADDRESS =
-  "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
-
-// Define session policies
-const policies: SessionPolicies = {
-  contracts: {
-    [ETH_TOKEN_ADDRESS]: {
-      methods: [
-        {
-          name: "approve",
-          entrypoint: "approve",
-          description: "Approve spending of tokens",
-        },
-        { name: "transfer", entrypoint: "transfer" },
-      ],
-    },
-  },
-};
+import { ENV, ENV_OPTIONS } from "./utils/constants";
+import { CONFIG } from "./config";
 
 // Initialize the connector
 const connector = new ControllerConnector({
-  policies,
+  policies: CONFIG.POLICIES,
   chains: [
     {
-      rpcUrl: "https://api.cartridge.gg/x/starknet/sepolia",
-    },
-    {
-      rpcUrl: "https://api.cartridge.gg/x/starknet/mainnet",
+      rpcUrl: CONFIG.RPC_URL,
     },
   ],
-  defaultChainId: constants.StarknetChainId.SN_SEPOLIA,
+  defaultChainId:
+    CONFIG.ENV == ENV_OPTIONS.SEPOLIA
+      ? constants.StarknetChainId.SN_SEPOLIA
+      : CONFIG.ENV == ENV_OPTIONS.MAINNET
+      ? constants.StarknetChainId.SN_MAIN
+      : "",
   // url:
   //     process.env.NEXT_PUBLIC_KEYCHAIN_DEPLOYMENT_URL ??
   //     process.env.NEXT_PUBLIC_KEYCHAIN_FRAME_URL,
@@ -54,7 +36,7 @@ const connector = new ControllerConnector({
   //     process.env.NEXT_PUBLIC_PROFILE_DEPLOYMENT_URL ??
   //     process.env.NEXT_PUBLIC_PROFILE_FRAME_URL,
   // slot: "profile-example",
-  slot: "",
+  slot: "octaflipdev2",
   preset: "octaflip",
   // namespace: "dopewars",
   // slot: "eternum-prod",
@@ -63,11 +45,11 @@ const connector = new ControllerConnector({
   // slot: "darkshuffle-mainnet",
   // preset: "dark-shuffle",
   // namespace: "darkshuffle_s0",
-  tokens: {
-    erc20: [
-      "0x0124aeb495b947201f5fac96fd1138e326ad86195b98df6dec9009158a533b49",
-    ],
-  },
+  // tokens: {
+  //   erc20: [
+  //     "0x0124aeb495b947201f5fac96fd1138e326ad86195b98df6dec9009158a533b49",
+  //   ],
+  // },
 });
 
 // Configure RPC provider
@@ -75,10 +57,10 @@ const provider = jsonRpcProvider({
   rpc: (chain: Chain) => {
     switch (chain) {
       case mainnet:
-        return { nodeUrl: "https://api.cartridge.gg/x/starknet/mainnet" };
+        return { nodeUrl: CONFIG.RPC_MAINNET_URL };
       case sepolia:
       default:
-        return { nodeUrl: "https://api.cartridge.gg/x/starknet/sepolia" };
+        return { nodeUrl: CONFIG.RPC_SEPOLIA_URL };
     }
   },
 });
@@ -93,8 +75,6 @@ predeployedAccounts({
 const decideConnectors =
   ENV == "local" ? (pa as unknown as Connector[]) : [connector];
 
-console.log("xyz");
-
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const localProvider = jsonRpcProvider({
     rpc: () => ({ nodeUrl: dojoConfig.rpcUrl as string }),
@@ -105,8 +85,8 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
     <StarknetConfig
       autoConnect
       chains={[mainnet, sepolia]}
-      provider={localProvider}
-      connectors={pa as unknown as Connector[]}
+      provider={provider}
+      connectors={[connector]}
       explorer={starkscan}
     >
       {children}
