@@ -2,6 +2,12 @@
 // TODO: Move to .env
 export const ENV: "local" | "dev" = "local";
 
+export enum ENV_OPTIONS {
+  MAINNET = "mainnet",
+  SEPOLIA = "sepolia",
+  LOCAL = "local",
+}
+
 export const RELEASE_TORII_URL =
   "https://api.cartridge.gg/x/octaflipdev1/torii";
 export const RELEASE_RPC_URL = "https://api.cartridge.gg/x/octaflipdev1/katana";

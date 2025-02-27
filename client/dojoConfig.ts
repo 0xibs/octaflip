@@ -1,10 +1,17 @@
-import { createDojoConfig, LOCAL_KATANA, LOCAL_TORII } from "@dojoengine/core";
+import { createDojoConfig } from "@dojoengine/core";
 
-import manifest from "../contract/manifest_dev.json";
-import { RELEASE_RPC_URL, RELEASE_TORII_URL } from "./src/utils/constants";
+import manifestDev from "../contract/manifest_dev.json";
+import manifestSepolia from "../contract/manifest_sepolia.json";
+import { CONFIG } from "./src/config";
+import { ENV_OPTIONS } from "./src/utils/constants";
 
 export const dojoConfig = createDojoConfig({
-  manifest,
-  toriiUrl: LOCAL_TORII,
-  rpcUrl: LOCAL_KATANA,
+  manifest:
+    CONFIG.ENV == ENV_OPTIONS.MAINNET
+      ? ""
+      : CONFIG.ENV == ENV_OPTIONS.SEPOLIA
+      ? manifestSepolia
+      : manifestDev,
+  toriiUrl: CONFIG.TORII_URL,
+  rpcUrl: CONFIG.RPC_URL,
 });

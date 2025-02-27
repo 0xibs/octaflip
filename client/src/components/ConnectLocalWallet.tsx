@@ -4,7 +4,8 @@ import {
   useConnect,
   useDisconnect,
 } from "@starknet-react/core";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import ControllerConnector from "@cartridge/connector/controller";
 
 export function ConnectLocalWallet() {
   const { connectAsync, connectors } = useConnect();
@@ -13,6 +14,14 @@ export function ConnectLocalWallet() {
   const [pendingConnectorId, setPendingConnectorId] = useState<
     string | undefined
   >(undefined);
+
+  const controller = connectors[0] as ControllerConnector;
+  const [username, setUsername] = useState<string>();
+
+  useEffect(() => {
+    if (!address) return;
+    controller.username()?.then((n) => setUsername(n));
+  }, [address, controller]);
 
   const connect = useCallback(
     async (connector: Connector) => {
@@ -33,7 +42,7 @@ export function ConnectLocalWallet() {
 
   if (undefined !== address) {
     return (
-      <div className="mb-6">
+      <div className="mt-10">
         <div style={{ display: "flex", gap: "1rem" }}>
           <button
             onClick={() => disconnect()}
@@ -41,6 +50,9 @@ export function ConnectLocalWallet() {
           >
             Disconnect
           </button>
+        </div>
+        <div className="text-white border border-white p-3">
+          {username ? username : null}
         </div>
       </div>
     );

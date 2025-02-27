@@ -1,23 +1,23 @@
 [world]
 name = "Octa Flip"
 description = "Octa Flip game on Starknet"
-cover_uri = ""
-icon_uri = ""
+cover_uri = "https://octaflip.com"
+icon_uri = "https://octaflip.com"
 website = "https://octaflip.com"
 seed = "octa_flip_dev_1"
 
 
 [world.socials]
-x = ""
-discord = ""
-github = ""
-telegram = ""
+x = "https://octaflip.com"
+discord = "https://octaflip.com"
+github = "https://octaflip.com"
+telegram = "https://octaflip.com"
 
 [namespace]
 default = "octa_flip"
 
 [env]
-# world_address = "0x06171ed98331e849d6084bf2b3e3186a7ddf35574dd68cab4691053ee8ab69d7"
+world_address = "0x069f1081f1b21d91e9a04ba5c1afe3a64fb740a1a56fe33b74fe4e38620ea93c"
 
 [writers]
 "octa_flip" = ["octa_flip-actions"]
