@@ -23,14 +23,9 @@ const Board = () => {
 
   const { account } = useAccount();
   const { client } = useDojoSDK();
-  const [play, setPlay] = useState<boolean>(false);
-  const [turn, setTurn] = useState<number>(0);
+
   const [my_flip_count, setMyFlipCount] = useState<number>(0);
   const [opponent_flip_count] = useState<number>(14);
-  const [my_tiles, setMyTiles] = useState<number[]>([]);
-  const [opponent_tiles, setOpponentTiles] = useState<number[]>([
-    1, 5, 4, 19, 23, 40, 30, 10, 22, 63, 62, 60, 56, 57,
-  ]);
 
   const {
     data: querySingleGameData,

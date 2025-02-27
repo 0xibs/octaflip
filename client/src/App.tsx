@@ -1,24 +1,7 @@
 import Header from "./components/Header";
-import Board from "./components/Board";
-import { useDojoSDK } from "@dojoengine/sdk/react";
-import { useAccount } from "@starknet-react/core";
-import { useMemo } from "react";
-import { getEntityIdFromKeys, getEvents } from "@dojoengine/utils";
 import { useNavigate } from "react-router";
 const App = () => {
-  const { useDojoStore, client, sdk } = useDojoSDK();
-  const { account } = useAccount();
-  const state = useDojoStore((state) => state);
-  const entities = useDojoStore((state) => state.entities);
-
   let navigate = useNavigate();
-
-  const entityId = useMemo(() => {
-    if (account) {
-      return getEntityIdFromKeys([BigInt(account.address)]);
-    }
-    return BigInt(0);
-  }, [account]);
 
   return (
     <>

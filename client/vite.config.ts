@@ -6,6 +6,6 @@ import mkcert from "vite-plugin-mkcert";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), wasm(), topLevelAwait()],
+  plugins: [react(), wasm(), mkcert(), topLevelAwait()],
   server: { hmr: { overlay: false } },
 });
