@@ -46,13 +46,10 @@ export function ConnectLocalWallet() {
         <div style={{ display: "flex", gap: "1rem" }}>
           <button
             onClick={() => disconnect()}
-            className="text-white border border-white p-3"
+            className="text-white border cursor-pointer border-white p-3"
           >
-            Disconnect
+            {username ? username : "Connected"}
           </button>
-        </div>
-        <div className="text-white border border-white p-3">
-          {username ? username : null}
         </div>
       </div>
     );
@@ -62,7 +59,6 @@ export function ConnectLocalWallet() {
     <div className="mb-6">
       <h2 className="text-white">Connect Wallet</h2>
       <div style={{ display: "flex", gap: "1rem" }}>
-        {connectors.length}
         {connectors.map((connector) => (
           <button
             key={connector.id}
@@ -70,7 +66,7 @@ export function ConnectLocalWallet() {
             disabled={!connector.available()}
             className="text-white border border-white p-3"
           >
-            {connector.name}
+            Connect {connector.name}
             {isWalletConnecting(connector.id) && "Connecting"}
           </button>
         ))}

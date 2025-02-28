@@ -11,6 +11,10 @@ const OCTAFLIP_SEPOLIA_WORLD_ADDRESS = import.meta.env
   .VITE_OCTAFLIP_SEPOLIA_WORLD_ADDRESS;
 const OCTAFLIP_MAINNET_WORLD_ADDRESS = import.meta.env
   .VITE_OCTAFLIP_MAINNET_WORLD_ADDRESS;
+const OCTAFLIP_SEPOLIA_POLICIES_ADDRESS = import.meta.env
+  .VITE_OCTAFLIP_SEPOLIA_POLICIES_ADDRESS;
+const OCTAFLIP_MAINNET_POLICIES_ADDRESS = import.meta.env
+  .VITE_OCTAFLIP_MAINNET_POLICIES_ADDRESS;
 
 // Decide TORII URL. Defaults to LOCAL_TORII
 const TORII_URL =
@@ -33,11 +37,18 @@ const OCTAFLIP_WORLD_ADDRESS =
     ? OCTAFLIP_MAINNET_WORLD_ADDRESS
     : ENV == ENV_OPTIONS.SEPOLIA
     ? OCTAFLIP_SEPOLIA_WORLD_ADDRESS
-    : "";
+    : null;
+
+const OCTAFLIP_POLICIES_ADDRESS =
+  ENV == ENV_OPTIONS.MAINNET
+    ? OCTAFLIP_MAINNET_POLICIES_ADDRESS
+    : ENV == ENV_OPTIONS.SEPOLIA
+    ? OCTAFLIP_SEPOLIA_POLICIES_ADDRESS
+    : null;
 
 const POLICIES: SessionPolicies = {
   contracts: {
-    [OCTAFLIP_WORLD_ADDRESS]: {
+    [OCTAFLIP_POLICIES_ADDRESS]: {
       methods: [
         {
           name: "create_game",
@@ -67,34 +78,6 @@ const POLICIES: SessionPolicies = {
       ],
     },
   },
-  messages: [
-    {
-      name: "Eternum Message Signing",
-      description: "Allows signing messages for Eternum",
-      types: {
-        StarknetDomain: [
-          { name: "name", type: "shortstring" },
-          { name: "version", type: "shortstring" },
-          { name: "chainId", type: "shortstring" },
-          { name: "revision", type: "shortstring" },
-        ],
-        "s0_eternum-Message": [
-          { name: "identity", type: "ContractAddress" },
-          { name: "channel", type: "shortstring" },
-          { name: "content", type: "string" },
-          { name: "timestamp", type: "felt" },
-          { name: "salt", type: "felt" },
-        ],
-      },
-      primaryType: "s0_eternum-Message",
-      domain: {
-        name: "Octaflip",
-        version: "1",
-        chainId: "SN_SEPOLIA",
-        revision: "1",
-      },
-    },
-  ],
 };
 
 export const CONFIG = {
