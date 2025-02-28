@@ -37,9 +37,9 @@ async function main() {
         worldAddress: dojoConfig.manifest.world.address,
       },
       domain: {
-        name: "WORLD_NAME",
-        version: "1.0",
-        chainId: "KATANA",
+        name: "Octaflip",
+        version: "1",
+        chainId: "SN_SEPOLIA",
         revision: "1",
       },
     },
