@@ -9,7 +9,8 @@ pub trait IActions<T> {
     fn start_game(ref self: T, game_id: u64);
     fn claim_tile(ref self: T, game_id: u64, x: u8, y: u8);
     fn game_winner(self: @T, game_id: u64) -> ContractAddress;
-    //fn player_at_position(ref self: T, x: u8, y: u8) -> ContractAddress;
+    fn start_and_end_time(self: @T, game_id: u64) -> (u64, u64);
+    fn players_tiles_flipped(self: @T, game_id: u64) -> (u8, u8);
 }
 
 // dojo decorator
@@ -308,35 +309,56 @@ pub mod actions {
         ///
         /// * If either player's address is the zero address (meaning they are not in the game).
         fn game_winner(self: @ContractState, game_id: u64) -> ContractAddress {
-            let world = self.world_default();
-            let player_one: PlayerInGame = world.read_model((game_id, 1));
-            let player_two: PlayerInGame = world.read_model((game_id, 2));
-
-            assert(player_one.player_address != zero_address(), 'Player not in game');
-            assert(player_two.player_address != zero_address(), 'Player not in game');
-
-            let mut player_one_tiles: u8 = 0;
-            let mut player_two_tiles: u8 = 0;
-
-            for i in 0..(GRID_SIZE * GRID_SIZE) {
-                let x = i % GRID_SIZE;
-                let y = i / GRID_SIZE;
-
-                let player_at_position: ContractAddress = self.player_at_position(game_id, x, y);
-                if player_at_position == player_one.player_address {
-                    player_one_tiles += 1;
-                } else if player_at_position == player_two.player_address {
-                    player_two_tiles += 1;
-                }
-            };
+            let (player_one_address, player_two_address) = self.players_in_game(game_id);
+            let (player_one_tiles, player_two_tiles) = self.player_claimed_tiles_count(game_id);
 
             if player_one_tiles > player_two_tiles {
-                player_one.player_address
+                player_one_address
             } else if player_two_tiles > player_one_tiles {
-                player_two.player_address
+                player_two_address
             } else {
                 zero_address()
             }
+        }
+
+        /// Returns the start and end time of a game.
+        ///
+        /// This function retrieves the start and end time of a game based on its ID.
+        /// It provides a convenient way to access the game's time information.
+        ///
+        /// # Arguments
+        ///
+        /// * `self` - The contract state.
+        /// * `game_id` - The ID of the game.
+        ///
+        /// # Returns
+        ///
+        /// A tuple containing the start and end time of the game.
+        fn start_and_end_time(self: @ContractState, game_id: u64) -> (u64, u64) {
+            let mut world = self.world_default();
+            let mut game: Game = world.read_model(game_id);
+
+            let (start_time, end_time) = unmask_session(game.data);
+            (start_time, end_time)
+        }
+
+        /// Returns the number of tiles flipped by each player in a game.
+        ///
+        /// This function retrieves the number of tiles flipped by each player in a game based on
+        /// its ID.
+        /// It provides a convenient way to access the game's tile flip information.
+        ///
+        /// # Arguments
+        ///
+        /// * `self` - The contract state.
+        /// * `game_id` - The ID of the game.
+        ///
+        /// # Returns
+        ///
+        /// A tuple containing the number of tiles flipped by player 1 and player 2.
+        fn players_tiles_flipped(self: @ContractState, game_id: u64) -> (u8, u8) {
+            let (player1_tiles, player2_tiles) = self.player_claimed_tiles_count(game_id);
+            (player1_tiles, player2_tiles)
         }
     }
 
@@ -398,6 +420,59 @@ pub mod actions {
             let world = self.world_default();
             let tile: Tile = world.read_model((x, y, game_id));
             tile.claimed
+        }
+
+        /// This function reads the `PlayerInGame` model for the given game ID and returns
+        /// the number of tiles claimed by each player.
+        ///
+        /// # Arguments
+        ///
+        /// * `self`: A reference to the `ContractState`.
+        /// * `game_id`: The ID of the game.
+        ///
+        /// # Returns
+        ///
+        /// A tuple containing the number of tiles claimed by player one and player two.
+        fn player_claimed_tiles_count(self: @ContractState, game_id: u64) -> (u8, u8) {
+            let (player_one_address, player_two_address) = self.players_in_game(game_id);
+
+            let mut player_one_tiles: u8 = 0;
+            let mut player_two_tiles: u8 = 0;
+
+            for i in 0..(GRID_SIZE * GRID_SIZE) {
+                let x = i % GRID_SIZE;
+                let y = i / GRID_SIZE;
+
+                let player_at_position: ContractAddress = self.player_at_position(game_id, x, y);
+                if player_at_position == player_one_address {
+                    player_one_tiles += 1;
+                } else if player_at_position == player_two_address {
+                    player_two_tiles += 1;
+                }
+            };
+
+            (player_one_tiles, player_two_tiles)
+        }
+
+        /// This function returns the addresses of the players in a game.
+        ///
+        /// # Arguments
+        ///
+        /// * `self` - The contract state.
+        /// * `game_id` - The ID of the game.
+        ///
+        /// # Returns
+        ///
+        /// A tuple containing the addresses of the players in the game.
+        fn players_in_game(self: @ContractState, game_id: u64) -> (ContractAddress, ContractAddress) {
+            let world = self.world_default();
+            let player_one: PlayerInGame = world.read_model((game_id, 1));
+            let player_two: PlayerInGame = world.read_model((game_id, 2));
+
+            assert(player_one.player_address != zero_address(), 'Player not in game');
+            assert(player_two.player_address != zero_address(), 'Player not in game');
+
+            (player_one.player_address, player_two.player_address)
         }
     }
 }
