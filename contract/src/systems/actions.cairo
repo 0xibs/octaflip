@@ -25,6 +25,7 @@ pub mod actions {
     use dojo::model::ModelStorage;
     use dojo::event::EventStorage;
 
+    /// Event emitted when a game is created.
     #[derive(Copy, Drop, Serde)]
     #[dojo::event]
     pub struct GameCreated {
@@ -35,6 +36,7 @@ pub mod actions {
         pub number_of_players: u8,
     }
 
+    /// Event emitted when a player joins a game.
     #[derive(Copy, Drop, Serde)]
     #[dojo::event]
     pub struct PlayerJoined {
@@ -45,6 +47,7 @@ pub mod actions {
         pub player_address: ContractAddress,
     }
 
+    /// Event emitted when a game starts.
     #[derive(Copy, Drop, Serde)]
     #[dojo::event]
     pub struct GameStarted {
@@ -53,6 +56,7 @@ pub mod actions {
         pub start_time: u64,
     }
 
+    /// Event emitted when a game ends.
     #[derive(Copy, Drop, Serde)]
     #[dojo::event]
     pub struct GameEnded {
@@ -62,6 +66,7 @@ pub mod actions {
         pub winner: ContractAddress,
     }
 
+    /// Event emitted when a player claims a tile.
     #[derive(Copy, Drop, Serde)]
     #[dojo::event]
     pub struct TileClaim {
@@ -254,8 +259,9 @@ pub mod actions {
             assert(current_time >= start_time, 'Game has not started');
 
             if current_time >= end_time {
-                let winner = self.game_winner(game_id);
+                let winner: ContractAddress = self.game_winner(game_id);
                 game.is_live = false;
+                game.data = 'ENDED';
                 //game.winner = winner;
                 world.write_model(@game);
                 world.emit_event(@GameEnded { game_id, end_time, winner });
@@ -464,7 +470,9 @@ pub mod actions {
         /// # Returns
         ///
         /// A tuple containing the addresses of the players in the game.
-        fn players_in_game(self: @ContractState, game_id: u64) -> (ContractAddress, ContractAddress) {
+        fn players_in_game(
+            self: @ContractState, game_id: u64,
+        ) -> (ContractAddress, ContractAddress) {
             let world = self.world_default();
             let player_one: PlayerInGame = world.read_model((game_id, 1));
             let player_two: PlayerInGame = world.read_model((game_id, 2));
