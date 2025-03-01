@@ -1,7 +1,20 @@
 # Octaflip
-
+Play at: https://www.octaflip.com
 ## Demo Video
-- https://www.youtube.com/watch?v=fZs9TmIBW60
+### [Watch this demo on YouTube](https://youtu.be/fZs9TmIBW60)
+- [![Watch the video](https://img.youtube.com/vi/fZs9TmIBW60/maxresdefault.jpg)](https://youtu.be/fZs9TmIBW60)
+
+- ## Verified Proofs
+- Celenium (https://mocha-4.celenium.io/namespace/0000000000000000000000000000000000007361796170726f6f6673?tab=Blobs)
+  ![image](https://github.com/user-attachments/assets/361ddc97-e7c3-4acb-9579-febcf242788f)
+  
+- Swiftness
+  ![image](https://github.com/user-attachments/assets/aaba5cae-3829-400d-b71f-178b241b9e56)
+  
+- Herodotus
+  ![image](https://github.com/user-attachments/assets/e4f3f525-9d84-4b4f-95a5-6678e9bb0c74)
+  ![image](https://github.com/user-attachments/assets/7e2a44e1-002f-4387-8630-fd2cd3bf4249)
+
 
 ## Description
 
