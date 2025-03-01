@@ -1,5 +1,5 @@
 # Octaflip
-Play at: https://www.octaflip.com
+Play at: https://mammothon.octaflip.com
 ## Demo Video
 ### [Watch this demo on YouTube](https://youtu.be/fZs9TmIBW60)
 - [![Watch the video](https://img.youtube.com/vi/fZs9TmIBW60/maxresdefault.jpg)](https://youtu.be/fZs9TmIBW60)
