@@ -5,6 +5,7 @@ export const ENV: "local" | "dev" = "local";
 export enum ENV_OPTIONS {
   MAINNET = "mainnet",
   SEPOLIA = "sepolia",
+  RELEASE = "release",
   LOCAL = "local",
 }
 
