@@ -72,14 +72,10 @@ predeployedAccounts({
   name: "Katana",
 }).then((p) => (pa = p));
 
-const decideConnectors =
-  ENV == "local" ? (pa as unknown as Connector[]) : [connector];
-
 export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const localProvider = jsonRpcProvider({
     rpc: () => ({ nodeUrl: dojoConfig.rpcUrl as string }),
   });
-  const decideProvider = ENV == "local" ? localProvider : provider;
 
   return (
     <StarknetConfig

@@ -39,7 +39,7 @@ async function main() {
       domain: {
         name: "Octaflip",
         version: "1",
-        chainId: "SN_SEPOLIA",
+        chainId: "KATANA",
         revision: "1",
       },
     },
