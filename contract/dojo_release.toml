@@ -17,14 +17,14 @@ telegram = "https://t.me/dojoengine"
 default = "octa_flip"
 
 [env]
-rpc_url = "https://api.cartridge.gg/x/octaflipdev1/katana"
+rpc_url = "https://api.cartridge.gg/x/mammoth/katana"
 # Default account for katana with seed = 0
-account_address = "0x5b6b8189bb580f0df1e6d6bec509ff0d6c9be7365d10627e0cf222ec1b47a71"
-private_key = "0x33003003001800009900180300d206308b0070db00121318d17b5e6262150b"
-# world_address = "0x06171ed98331e849d6084bf2b3e3186a7ddf35574dd68cab4691053ee8ab69d7"
+account_address = "0x1f401c745d3dba9b9da11921d1fb006c96f571e9039a0ece3f3b0dc14f04c3d"
+private_key = "0x7230b49615d175307d580c33d6fda61fc7b9aec91df0f5c1a5ebe3b8cbfee02"
+world_address = "0x05de74240ba5d4b5e9e6858e377993d3ae950f22cbd937be4100257286de47d4"
 
 [writers]
 "octa_flip" = ["octa_flip-actions"]
 
 [tool.dojo.env]
-rpc_url = "https://api.cartridge.gg/x/octaflipdev1/katana"
+rpc_url = "https://api.cartridge.gg/x/mammoth/katana"
