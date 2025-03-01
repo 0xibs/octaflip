@@ -1,5 +1,8 @@
 # Octaflip
 
+## Demo Video
+- https://www.youtube.com/watch?v=fZs9TmIBW60
+
 ## Description
 
 Octaflip is a fully on-chain Player vs. Player game built using Dojo toolchain for provable applications.
