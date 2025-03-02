@@ -1,7 +1,3 @@
-// Temp. ENV
-// TODO: Move to .env
-export const ENV: "local" | "dev" = "local";
-
 export enum ENV_OPTIONS {
   MAINNET = "mainnet",
   SEPOLIA = "sepolia",
