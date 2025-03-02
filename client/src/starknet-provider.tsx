@@ -12,7 +12,7 @@ import {
   predeployedAccounts,
   type PredeployedAccountsConnector,
 } from "@dojoengine/predeployed-connector";
-import { ENV, ENV_OPTIONS } from "./utils/constants";
+import { ENV_OPTIONS } from "./utils/constants";
 import { CONFIG } from "./config";
 
 // Initialize the connector
@@ -20,15 +20,16 @@ const connector = new ControllerConnector({
   policies: CONFIG.POLICIES,
   chains: [
     {
-      rpcUrl: CONFIG.RPC_URL,
+      rpcUrl:
+        CONFIG.ENV == ENV_OPTIONS.SEPOLIA
+          ? CONFIG.RPC_SEPOLIA_URL
+          : CONFIG.RPC_MAINNET_URL,
     },
   ],
   defaultChainId:
     CONFIG.ENV == ENV_OPTIONS.SEPOLIA
       ? constants.StarknetChainId.SN_SEPOLIA
-      : CONFIG.ENV == ENV_OPTIONS.MAINNET
-      ? constants.StarknetChainId.SN_MAIN
-      : "",
+      : constants.StarknetChainId.SN_MAIN,
   // url:
   //     process.env.NEXT_PUBLIC_KEYCHAIN_DEPLOYMENT_URL ??
   //     process.env.NEXT_PUBLIC_KEYCHAIN_FRAME_URL,
@@ -76,6 +77,9 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
   const localProvider = jsonRpcProvider({
     rpc: () => ({ nodeUrl: dojoConfig.rpcUrl as string }),
   });
+
+  const decideProvider =
+    CONFIG.ENV == ENV_OPTIONS.LOCAL ? localProvider : provider;
 
   return (
     <StarknetConfig

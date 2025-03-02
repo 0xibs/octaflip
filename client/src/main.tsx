@@ -15,7 +15,7 @@ import { dojoConfig } from "../dojoConfig.ts";
 import { StarknetProvider } from "./starknet-provider.tsx";
 import { setupWorld } from "./dojo/typescript/contracts.gen.ts";
 import { schema } from "./dojo/typescript/models.gen.ts";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { HashRouter as BrowserRouter, Route, Routes } from "react-router";
 import NewGame from "./pages/NewGame.tsx";
 import JoinGame from "./pages/JoinGame.tsx";
 import Board from "./components/Board";
