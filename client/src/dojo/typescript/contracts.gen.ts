@@ -84,6 +84,40 @@ export function setupWorld(provider: DojoProvider) {
 		}
 	};
 
+	const build_actions_playersTilesFlipped_calldata = (gameId: BigNumberish): DojoCall => {
+		return {
+			contractName: "actions",
+			entrypoint: "players_tiles_flipped",
+			calldata: [gameId],
+		};
+	};
+
+	const actions_playersTilesFlipped = async (gameId: BigNumberish) => {
+		try {
+			return await provider.call("octa_flip", build_actions_playersTilesFlipped_calldata(gameId));
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	};
+
+	const build_actions_startAndEndTime_calldata = (gameId: BigNumberish): DojoCall => {
+		return {
+			contractName: "actions",
+			entrypoint: "start_and_end_time",
+			calldata: [gameId],
+		};
+	};
+
+	const actions_startAndEndTime = async (gameId: BigNumberish) => {
+		try {
+			return await provider.call("octa_flip", build_actions_startAndEndTime_calldata(gameId));
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	};
+
 	const build_actions_startGame_calldata = (gameId: BigNumberish): DojoCall => {
 		return {
 			contractName: "actions",
@@ -117,6 +151,10 @@ export function setupWorld(provider: DojoProvider) {
 			buildGameWinnerCalldata: build_actions_gameWinner_calldata,
 			joinGame: actions_joinGame,
 			buildJoinGameCalldata: build_actions_joinGame_calldata,
+			playersTilesFlipped: actions_playersTilesFlipped,
+			buildPlayersTilesFlippedCalldata: build_actions_playersTilesFlipped_calldata,
+			startAndEndTime: actions_startAndEndTime,
+			buildStartAndEndTimeCalldata: build_actions_startAndEndTime_calldata,
 			startGame: actions_startGame,
 			buildStartGameCalldata: build_actions_startGame_calldata,
 		},

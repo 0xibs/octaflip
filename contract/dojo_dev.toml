@@ -1,17 +1,17 @@
 [world]
 name = "Octa Flip"
 description = "Octa flip game on Starknet"
-cover_uri = ""
-icon_uri = ""
+cover_uri = "https://octaflip.com"
+icon_uri = "https://octaflip.com"
 website = "https://octaflip.com"
 seed = "octa_flip_dev_1"
 
 
 [world.socials]
 x = ""
-discord = ""
-github = ""
-telegram = ""
+discord = "https://octaflip.com"
+github = "https://octaflip.com"
+telegram = "https://octaflip.com"
 
 [namespace]
 default = "octa_flip"

@@ -4,8 +4,7 @@ import {
   useConnect,
   useDisconnect,
 } from "@starknet-react/core";
-import { useCallback, useEffect, useState } from "react";
-import ControllerConnector from "@cartridge/connector/controller";
+import { useCallback, useState } from "react";
 
 export function ConnectLocalWallet() {
   const { connectAsync, connectors } = useConnect();
@@ -14,14 +13,6 @@ export function ConnectLocalWallet() {
   const [pendingConnectorId, setPendingConnectorId] = useState<
     string | undefined
   >(undefined);
-
-  const controller = connectors[0] as ControllerConnector;
-  const [username, setUsername] = useState<string>();
-
-  useEffect(() => {
-    if (!address) return;
-    controller.username()?.then((n) => setUsername(n));
-  }, [address, controller]);
 
   const connect = useCallback(
     async (connector: Connector) => {
@@ -42,13 +33,13 @@ export function ConnectLocalWallet() {
 
   if (undefined !== address) {
     return (
-      <div className="mt-10">
+      <div className="mb-6">
         <div style={{ display: "flex", gap: "1rem" }}>
           <button
             onClick={() => disconnect()}
-            className="text-white border cursor-pointer border-white p-3"
+            className="text-white border border-white p-3"
           >
-            {username ? username : "Connected"}
+            Disconnect
           </button>
         </div>
       </div>
@@ -59,6 +50,7 @@ export function ConnectLocalWallet() {
     <div className="mb-6">
       <h2 className="text-white">Connect Wallet</h2>
       <div style={{ display: "flex", gap: "1rem" }}>
+        {}
         {connectors.map((connector) => (
           <button
             key={connector.id}
@@ -66,7 +58,7 @@ export function ConnectLocalWallet() {
             disabled={!connector.available()}
             className="text-white border border-white p-3"
           >
-            Connect {connector.name}
+            {connector.name}
             {isWalletConnecting(connector.id) && "Connecting"}
           </button>
         ))}

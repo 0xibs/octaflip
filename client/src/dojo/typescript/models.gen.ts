@@ -2,8 +2,6 @@ import type { SchemaType as ISchemaType } from "@dojoengine/sdk";
 
 import { BigNumberish } from 'starknet';
 
-type WithFieldOrder<T> = T & { fieldOrder: string[] };
-
 // Type definition for `octa_flip::models::Game` struct
 export interface Game {
 	id: BigNumberish;
@@ -141,32 +139,31 @@ export interface TileClaimValue {
 
 export interface SchemaType extends ISchemaType {
 	octa_flip: {
-		Game: WithFieldOrder<Game>,
-		GameCounter: WithFieldOrder<GameCounter>,
-		GameCounterValue: WithFieldOrder<GameCounterValue>,
-		GameValue: WithFieldOrder<GameValue>,
-		PlayerAtPosition: WithFieldOrder<PlayerAtPosition>,
-		PlayerAtPositionValue: WithFieldOrder<PlayerAtPositionValue>,
-		PlayerInGame: WithFieldOrder<PlayerInGame>,
-		PlayerInGameValue: WithFieldOrder<PlayerInGameValue>,
-		Tile: WithFieldOrder<Tile>,
-		TileValue: WithFieldOrder<TileValue>,
-		GameCreated: WithFieldOrder<GameCreated>,
-		GameCreatedValue: WithFieldOrder<GameCreatedValue>,
-		GameEnded: WithFieldOrder<GameEnded>,
-		GameEndedValue: WithFieldOrder<GameEndedValue>,
-		GameStarted: WithFieldOrder<GameStarted>,
-		GameStartedValue: WithFieldOrder<GameStartedValue>,
-		PlayerJoined: WithFieldOrder<PlayerJoined>,
-		PlayerJoinedValue: WithFieldOrder<PlayerJoinedValue>,
-		TileClaim: WithFieldOrder<TileClaim>,
-		TileClaimValue: WithFieldOrder<TileClaimValue>,
+		Game: Game,
+		GameCounter: GameCounter,
+		GameCounterValue: GameCounterValue,
+		GameValue: GameValue,
+		PlayerAtPosition: PlayerAtPosition,
+		PlayerAtPositionValue: PlayerAtPositionValue,
+		PlayerInGame: PlayerInGame,
+		PlayerInGameValue: PlayerInGameValue,
+		Tile: Tile,
+		TileValue: TileValue,
+		GameCreated: GameCreated,
+		GameCreatedValue: GameCreatedValue,
+		GameEnded: GameEnded,
+		GameEndedValue: GameEndedValue,
+		GameStarted: GameStarted,
+		GameStartedValue: GameStartedValue,
+		PlayerJoined: PlayerJoined,
+		PlayerJoinedValue: PlayerJoinedValue,
+		TileClaim: TileClaim,
+		TileClaimValue: TileClaimValue,
 	},
 }
 export const schema: SchemaType = {
 	octa_flip: {
 		Game: {
-			fieldOrder: ['id', 'board_width', 'board_height', 'number_of_players', 'data', 'is_live'],
 			id: 0,
 			board_width: 0,
 			board_height: 0,
@@ -175,16 +172,13 @@ export const schema: SchemaType = {
 			is_live: false,
 		},
 		GameCounter: {
-			fieldOrder: ['id', 'current_val'],
 			id: 0,
 			current_val: 0,
 		},
 		GameCounterValue: {
-			fieldOrder: ['current_val'],
 			current_val: 0,
 		},
 		GameValue: {
-			fieldOrder: ['board_width', 'board_height', 'number_of_players', 'data', 'is_live'],
 			board_width: 0,
 			board_height: 0,
 			number_of_players: 0,
@@ -192,90 +186,74 @@ export const schema: SchemaType = {
 			is_live: false,
 		},
 		PlayerAtPosition: {
-			fieldOrder: ['game_id', 'player', 'x', 'y'],
 			game_id: 0,
 			player: "",
 			x: 0,
 			y: 0,
 		},
 		PlayerAtPositionValue: {
-			fieldOrder: ['x', 'y'],
 			x: 0,
 			y: 0,
 		},
 		PlayerInGame: {
-			fieldOrder: ['game_id', 'player_id', 'player_address'],
 			game_id: 0,
 			player_id: 0,
 			player_address: "",
 		},
 		PlayerInGameValue: {
-			fieldOrder: ['player_address'],
 			player_address: "",
 		},
 		Tile: {
-			fieldOrder: ['x', 'y', 'game_id', 'claimed'],
 			x: 0,
 			y: 0,
 			game_id: 0,
 			claimed: "",
 		},
 		TileValue: {
-			fieldOrder: ['claimed'],
 			claimed: "",
 		},
 		GameCreated: {
-			fieldOrder: ['game_id', 'board_width', 'board_height', 'number_of_players'],
 			game_id: 0,
 			board_width: 0,
 			board_height: 0,
 			number_of_players: 0,
 		},
 		GameCreatedValue: {
-			fieldOrder: ['board_width', 'board_height', 'number_of_players'],
 			board_width: 0,
 			board_height: 0,
 			number_of_players: 0,
 		},
 		GameEnded: {
-			fieldOrder: ['game_id', 'end_time', 'winner'],
 			game_id: 0,
 			end_time: 0,
 			winner: "",
 		},
 		GameEndedValue: {
-			fieldOrder: ['end_time', 'winner'],
 			end_time: 0,
 			winner: "",
 		},
 		GameStarted: {
-			fieldOrder: ['game_id', 'start_time'],
 			game_id: 0,
 			start_time: 0,
 		},
 		GameStartedValue: {
-			fieldOrder: ['start_time'],
 			start_time: 0,
 		},
 		PlayerJoined: {
-			fieldOrder: ['game_id', 'player_id', 'player_address'],
 			game_id: 0,
 			player_id: 0,
 			player_address: "",
 		},
 		PlayerJoinedValue: {
-			fieldOrder: ['player_address'],
 			player_address: "",
 		},
 		TileClaim: {
-			fieldOrder: ['game_id', 'player', 'x', 'y'],
 			game_id: 0,
 			player: "",
 			x: 0,
 			y: 0,
 		},
 		TileClaimValue: {
-			fieldOrder: ['player', 'x', 'y'],
 			player: "",
 			x: 0,
 			y: 0,

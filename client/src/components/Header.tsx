@@ -1,6 +1,9 @@
 import logo from "./../assets/images/flip.png";
-import { ConnectLocalWallet } from "./ConnectLocalWallet";
+import { ConnectWallet } from "./ConnectWallet";
 import { useNavigate } from "react-router";
+import { CONFIG } from "../config";
+import { ENV_OPTIONS } from "../utils/constants";
+import { ConnectLocalWallet } from "./ConnectLocalWallet";
 const Header = () => {
   const navigate = useNavigate();
 
@@ -33,7 +36,11 @@ const Header = () => {
           >
             Join
           </button>
-          <ConnectLocalWallet />
+          {CONFIG.ENV === ENV_OPTIONS.LOCAL ? (
+            <ConnectLocalWallet />
+          ) : (
+            <ConnectWallet />
+          )}
         </nav>
       </header>
     </>

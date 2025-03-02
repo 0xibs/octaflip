@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import player_avatar from "./../assets/images/user.png";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import Header from "./Header";
 import {
+  QUERY_FLIPPED_TILES_COUNT,
   QUERY_PLAYERS_IN_GAME,
   QUERY_PLAYER_AT_POSITION,
   QUERY_SINGLE_GAME,
@@ -16,7 +17,7 @@ import { getEvents } from "@dojoengine/utils";
 import { extractErrorMessageFromJSONRPCError } from "../utils/helpers";
 import { CountdownTimer } from "./Countdown";
 import Tile from "./Tile";
-import { GRID_SIZE } from "../utils/constants";
+import { GAME_PLAY_DURATION_IN_SECONDS, GRID_SIZE } from "../utils/constants";
 
 const Board = () => {
   const { gameId } = useParams();
@@ -24,8 +25,10 @@ const Board = () => {
   const { account } = useAccount();
   const { client } = useDojoSDK();
 
-  const [my_flip_count, setMyFlipCount] = useState<number>(0);
-  const [opponent_flip_count] = useState<number>(14);
+  let playerGreenFlipCount = 0;
+  let playerYellowFlipCount = 0;
+
+  const [gameStartTime, setGameStartTime] = useState(null);
 
   const {
     data: querySingleGameData,
@@ -60,11 +63,65 @@ const Board = () => {
   const gameIsOngoing = game?.is_live;
   const playersInGame =
     queryPlayersInGameData?.octaFlipPlayerInGameModels?.edges;
+  const playerGreen =
+    playersInGame?.length > 1 ? playersInGame[0].node.player_address : "0x0";
+  const playerYellow =
+    playersInGame?.length > 1 ? playersInGame[1].node.player_address : "0x0";
   const waiting = playersInGame?.length < 2 ? true : false;
   const tilesOfGame = queryTilesOfGameData?.octaFlipTileModels?.edges;
 
-  const startTime = Math.floor(Date.now() / 1000); // Current UTC time in seconds
-  const duration = 3600; // 1-minute countdown
+  const {
+    data: queryFlippedTilesCount1,
+    startPolling: startPollingFlippedTilesCount1,
+  } = useQuery(QUERY_FLIPPED_TILES_COUNT, {
+    variables: { gameId, player_address: playerGreen },
+  });
+
+  const {
+    data: queryFlippedTilesCount2,
+    startPolling: startPollingFlippedTilesCount2,
+  } = useQuery(QUERY_FLIPPED_TILES_COUNT, {
+    variables: { gameId, player_address: playerYellow },
+  });
+
+  playerGreenFlipCount =
+    queryFlippedTilesCount2?.octaFlipTileModels?.totalCount;
+  playerYellowFlipCount =
+    queryFlippedTilesCount1?.octaFlipTileModels?.totalCount;
+
+  startPollingFlippedTilesCount1(100);
+  startPollingFlippedTilesCount2(100);
+
+  async function getGameStartTime(gameId: string) {
+    try {
+      const time = await client.actions.startAndEndTime(gameId);
+      const gameStartTime = Number(parseInt(time["0"]));
+      setGameStartTime(gameStartTime);
+    } catch (e: any) {
+      const errorMessage = extractErrorMessageFromJSONRPCError(
+        JSON.stringify(e)
+      );
+      toast.error(errorMessage);
+      console.error(e);
+    }
+  }
+
+  async function getTilesFlippedCount(gameId: string) {
+    try {
+      const flipCount = await client.actions.playersTilesFlipped(gameId);
+      const GreenFlipCount = Number(parseInt(flipCount["0"]));
+      const YellowFlipCount = Number(parseInt(flipCount["1"]));
+
+      setPlayerGreenFlipCount(GreenFlipCount);
+      setPlayerYellowFlipCount(YellowFlipCount);
+    } catch (e: any) {
+      const errorMessage = extractErrorMessageFromJSONRPCError(
+        JSON.stringify(e)
+      );
+      toast.error(errorMessage);
+      console.error(e);
+    }
+  }
 
   async function startGame() {
     if (!account) {
@@ -142,6 +199,19 @@ const Board = () => {
   startPollingSingleGameData(100);
   startPollingPlayerAtPosition(100);
   startPollingTilesOfGame(100);
+
+  // setTimeout(() => {
+  //   if (gameId) {
+  //     getTilesFlippedCount(gameId);
+  //   }
+  // }, 1000);
+
+  useEffect(() => {
+    if (gameId) {
+      getGameStartTime(gameId);
+    }
+  }, [gameId, gameIsOngoing]);
+
   return (
     <>
       <Header />
@@ -178,7 +248,12 @@ const Board = () => {
                   claimTile={claimTile}
                   tilesOfGame={tilesOfGame ? tilesOfGame : null}
                   playerAddress={account ? account.address : null}
-                  opponentAddress={
+                  playerGreen={
+                    playersInGame
+                      ? playersInGame[1]?.node?.player_address
+                      : null
+                  }
+                  playerYellow={
                     playersInGame
                       ? playersInGame[0]?.node?.player_address
                       : null
@@ -200,17 +275,17 @@ const Board = () => {
                   <div className="w-auto flex flex-row space-x-1 items-center">
                     <span className="w-2 h-2 rounded bg-lime-300"></span>
                     <span className="text-xs font-bold text-lime-300">
-                      {my_flip_count}
+                      {playerGreenFlipCount}
                     </span>
-                  </div>
-                  <div className="w-auto flex flex-row space-x-1 items-center">
-                    <span className="w-2 h-2 rounded bg-amber-300"></span>
-                    <span className="text-xs font-bold text-amber-300">0</span>
                   </div>
                 </div>
               </div>
             </div>
-            <CountdownTimer startTime={startTime} duration={duration} />
+            <CountdownTimer
+              startTime={gameStartTime}
+              duration={GAME_PLAY_DURATION_IN_SECONDS}
+              playersInGame={playersInGame?.length}
+            />
 
             <div className="flex flex-col sm:flex-row justify-center sm:justify-start items-center space-y-2 space-x-0 sm:space-y-0 sm:space-x-2">
               <div className="w-12 h-12 rounded-full bg-amber-300 border-2 border-amber-600 flex-none">
@@ -224,12 +299,8 @@ const Board = () => {
                   <div className="w-auto flex flex-row space-x-1 items-center">
                     <span className="w-2 h-2 rounded bg-amber-300"></span>
                     <span className="text-xs font-bold text-amber-300">
-                      {opponent_flip_count}
+                      {playerYellowFlipCount}
                     </span>
-                  </div>
-                  <div className="w-auto flex flex-row space-x-1 items-center">
-                    <span className="w-2 h-2 rounded bg-lime-300"></span>
-                    <span className="text-xs font-bold text-lime-300">0</span>
                   </div>
                 </div>
               </div>

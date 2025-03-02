@@ -75,3 +75,11 @@ export const QUERY_PLAYER_AT_POSITION = gql`
     }
   }
 `;
+
+export const QUERY_FLIPPED_TILES_COUNT = gql`
+  query octaFlipTileModels($gameId: u64, $player_address: felt252) {
+    octaFlipTileModels(where: { game_id: $gameId, claimed: $player_address }) {
+      totalCount
+    }
+  }
+`;
