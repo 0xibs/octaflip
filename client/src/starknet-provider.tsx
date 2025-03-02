@@ -39,6 +39,7 @@ const connector = new ControllerConnector({
   // slot: "profile-example",
   slot: "octaflipdev2",
   preset: "octaflip",
+  propagateSessionErrors: true,
   // namespace: "dopewars",
   // slot: "eternum-prod",
   // preset: "eternum",

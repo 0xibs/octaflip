@@ -1,8 +1,8 @@
 {
   "world": {
     "class_hash": "0x7c9469d45a9cdbab775035afb48e1fa73fb35ab059fcb9dfb0a301aa973e783",
-    "address": "0x69f1081f1b21d91e9a04ba5c1afe3a64fb740a1a56fe33b74fe4e38620ea93c",
-    "seed": "octa_flip_dev_1",
+    "address": "0x3657c2945c07d6edb4eb04fa5473d8ac17156c0f78860c78e7f370babf027e2",
+    "seed": "octaflipsepolia1",
     "name": "Octa Flip",
     "entrypoints": [
       "uuid",
@@ -1312,8 +1312,8 @@
   },
   "contracts": [
     {
-      "address": "0x207d6df08989e5f1cc5b231595bf242428a7144c5d50a2d2d3f654d1356f263",
-      "class_hash": "0x3c6fe82560cc17b2fd77a32e53988ab4bf8cae2f577e615257e4b8e0ac3199f",
+      "address": "0x2702658a1a14a7630dfa96402a080ddd7764729fd225e07dc0075d25e83656c",
+      "class_hash": "0x4a59b91c3a8c4eedb7ddb30baf28f15f19a61b6abba3e9279cc202681adec6f",
       "abi": [
         {
           "type": "impl",
@@ -1441,6 +1441,38 @@
               "outputs": [
                 {
                   "type": "core::starknet::contract_address::ContractAddress"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "start_and_end_time",
+              "inputs": [
+                {
+                  "name": "game_id",
+                  "type": "core::integer::u64"
+                }
+              ],
+              "outputs": [
+                {
+                  "type": "(core::integer::u64, core::integer::u64)"
+                }
+              ],
+              "state_mutability": "view"
+            },
+            {
+              "type": "function",
+              "name": "players_tiles_flipped",
+              "inputs": [
+                {
+                  "name": "game_id",
+                  "type": "core::integer::u64"
+                }
+              ],
+              "outputs": [
+                {
+                  "type": "(core::integer::u8, core::integer::u8)"
                 }
               ],
               "state_mutability": "view"
