@@ -18,31 +18,31 @@ importers:
         specifier: ^0.6.0
         version: 0.6.0(starknet@6.23.1(encoding@0.1.13))
       '@dojoengine/core':
-        specifier: 1.1.1
-        version: 1.1.1(encoding@0.1.13)(typescript@5.7.3)
+        specifier: 1.2.4
+        version: 1.2.4(encoding@0.1.13)(typescript@5.7.3)
       '@dojoengine/create-burner':
-        specifier: 1.1.1
-        version: 1.1.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)
+        specifier: 1.2.4
+        version: 1.2.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)
       '@dojoengine/predeployed-connector':
-        specifier: 1.1.1
-        version: 1.1.1(@starknet-react/core@3.7.2(get-starknet-core@4.0.0)(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3))(starknet@6.23.1(encoding@0.1.13))
+        specifier: 1.2.4
+        version: 1.2.4(@starknet-react/core@3.7.2(get-starknet-core@4.0.0)(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3))(starknet@6.23.1(encoding@0.1.13))
       '@dojoengine/sdk':
-        specifier: 1.1.1
-        version: 1.1.1(@tanstack/react-query@5.66.11(react@19.0.0))(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(encoding@0.1.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)
+        specifier: 1.2.4
+        version: 1.2.4(@tanstack/react-query@5.66.11(react@19.0.0))(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(encoding@0.1.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(zod@3.24.2)
       '@dojoengine/torii-client':
-        specifier: 1.1.1
-        version: 1.1.1
+        specifier: 1.2.4
+        version: 1.2.4
       '@dojoengine/torii-wasm':
-        specifier: 1.1.1
-        version: 1.1.1
+        specifier: 1.2.4
+        version: 1.2.4
       '@dojoengine/utils':
-        specifier: 1.1.1
-        version: 1.1.1(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(zod@3.24.2)
+        specifier: 1.2.4
+        version: 1.2.4(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(zod@3.24.2)
       '@starknet-react/chains':
-        specifier: ^3.1.2
+        specifier: ^3.1.0
         version: 3.1.2
       '@starknet-react/core':
-        specifier: ^3.7.2
+        specifier: ^3.6.2
         version: 3.7.2(get-starknet-core@4.0.0)(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)
       '@tailwindcss/postcss':
         specifier: ^4.0.7
@@ -76,12 +76,12 @@ importers:
         version: 10.0.0
       vite-plugin-top-level-await:
         specifier: ^1.4.4
-        version: 1.5.0(rollup@4.34.8)(vite@6.2.0(jiti@2.4.2)(lightningcss@1.29.1))
+        version: 1.5.0(rollup@4.34.9)(vite@6.2.0(jiti@2.4.2)(lightningcss@1.29.1))
       vite-plugin-wasm:
         specifier: ^3.3.0
         version: 3.4.1(vite@6.2.0(jiti@2.4.2)(lightningcss@1.29.1))
       zustand:
-        specifier: ^4.5.5
+        specifier: ^4.5.6
         version: 4.5.6(@types/react@19.0.10)(immer@10.1.1)(react@19.0.0)
     devDependencies:
       '@eslint/js':
@@ -104,7 +104,7 @@ importers:
         version: 9.21.0(jiti@2.4.2)
       eslint-plugin-react-hooks:
         specifier: ^5.0.0
-        version: 5.1.0(eslint@9.21.0(jiti@2.4.2))
+        version: 5.2.0(eslint@9.21.0(jiti@2.4.2))
       eslint-plugin-react-refresh:
         specifier: ^0.4.18
         version: 0.4.19(eslint@9.21.0(jiti@2.4.2))
@@ -293,29 +293,29 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@dojoengine/core@1.1.1':
-    resolution: {integrity: sha512-Q9P53bIbLzi4mfblNQfM5CdcrcWzlTYS0kqebeVQg4p2eRaeOlapE/TfYfhMWqm5nx1OXpv5onvtydi+yJI5kQ==}
+  '@dojoengine/core@1.2.4':
+    resolution: {integrity: sha512-JgpajrQ81b5z+cWv+cI1TYxHQpDGdmzsqkBj9J/aP1F2iXhVeZGKOLvNcoxIcM++28EjNfFOct/nvyyu12+5eA==}
     hasBin: true
 
-  '@dojoengine/create-burner@1.1.1':
-    resolution: {integrity: sha512-AqIRGkQOmrSC7vDum/YTVraRAzSQ1g01YfmxveP2gbnzctnbJvNioFNpDSunfzoiFaJKPqSgGWkiYuGHVjFbbw==}
+  '@dojoengine/create-burner@1.2.4':
+    resolution: {integrity: sha512-YHMEai+vgIg6qfUF/Tw02SqitWDpszFaS3+4+25tOJutV1Ow1yn8PE8zu+J+pNd1YVM1wDOPKsmvsHBuGtJmUw==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
-      starknet: 6.21.0
+      starknet: 6.23.1
 
-  '@dojoengine/predeployed-connector@1.1.1':
-    resolution: {integrity: sha512-PADn53+CW1IEaApjU2f42+qv7thTrdMs1Pin5NKr2P6T7Nu/f/AYzQIlCNJa/wu8jjZxQX9JjNsed7AFkjyECg==}
+  '@dojoengine/predeployed-connector@1.2.4':
+    resolution: {integrity: sha512-c9LOneHCA93Dj24rGkTkMS4XAfRtJOOF5VDcpja+wxiDw8nLAjGIyjVsgXOHTuEvtYqoOiDO2+MgoIEzDoIuWg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       '@starknet-react/core': ^3.6.2
-      starknet: 6.21.0
+      starknet: 6.23.1
 
   '@dojoengine/recs@2.0.13':
     resolution: {integrity: sha512-Cgz4Unlnk2FSDoFTYKrJexX/KiSYPMFMxftxQkC+9LUKS5yNGkgFQM7xu4/L1HvpDAenL7NjUmH6ynRAS7Iifw==}
 
-  '@dojoengine/sdk@1.1.1':
-    resolution: {integrity: sha512-hZXiOZFBgd44e2x/KrBY2lW0XU4dL9J3rfGAeK21VTZmCBueVl3p5wyD9pdrlB/EZXtpt969GlJgxcSKX1FOdA==}
+  '@dojoengine/sdk@1.2.4':
+    resolution: {integrity: sha512-V+hb7jy90szyCFQ+1D8H+PJhA+5sMIKe9sTMkAujZbtHvY0SmesziGUFNL3o8F0Xy0DD+zZWRjvVSyax0133ng==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       '@tanstack/react-query': ^5.62.16
@@ -323,18 +323,18 @@ packages:
       '@types/react-dom': ^18.3.1
       react: ^18.3.1
       react-dom: ^18.3.1
-      starknet: 6.21.0
+      starknet: 6.23.1
 
-  '@dojoengine/torii-client@1.1.1':
-    resolution: {integrity: sha512-+rN4yyobSPh3QMqdKHfM6mPfUt4EcE9LTwgg1xWkeNJYLX7LyabDNk1QTyto7C4LDCVg44snP5PwZhXPnY6M4g==}
+  '@dojoengine/torii-client@1.2.4':
+    resolution: {integrity: sha512-QNAFABv4cFabysGnGbKQioeGiPNLkjm+QeeKT3/tLhAYh7MSyt0Vn7xSBFInPWgEswnCJZJyElabWThAb23Jkw==}
 
-  '@dojoengine/torii-wasm@1.1.1':
-    resolution: {integrity: sha512-dqWe7EQv09HObJMAFO/UZduWvnMhQziWiXAoy8eFZorvktSoYfYUanA6nk+Wh5fzctJlP7G2gcOd4BH/GamYyA==}
+  '@dojoengine/torii-wasm@1.2.4':
+    resolution: {integrity: sha512-3ExiLYZAoU76IVMCM6Nf1FBZyZgFCpciR0ewQ51viDo12a1rK9BW3OkDYf6qCaPIU77PGxfumipOeiJLoYhe1A==}
 
-  '@dojoengine/utils@1.1.1':
-    resolution: {integrity: sha512-gMSfS3qImOCw3aWMn6rRQvhyS+/Y+VAELUepeTCRsLNLTzTMcVvF+coIZHfNBcsBwGu/PdegQkkogZ+Wd+EV4w==}
+  '@dojoengine/utils@1.2.4':
+    resolution: {integrity: sha512-mHUGwupDjUcTmeCEPv/Ubd5S4ltZg2dMRpbV4dSP9Tw6WqaCOTykbUuiCKa3taN+3OsRNZ7HmyEDDZKoR5W2Nw==}
     peerDependencies:
-      starknet: 6.21.0
+      starknet: 6.23.1
 
   '@esbuild/aix-ppc64@0.25.0':
     resolution: {integrity: sha512-O7vun9Sf8DFjH2UtqK8Ku3LkquL9SZL8OLY1T5NZkA34+wG3OQF7cl4Ql8vdNzM6fzBbYfLaiRLIOZ+2FOCgBQ==}
@@ -626,98 +626,98 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/rollup-android-arm-eabi@4.34.8':
-    resolution: {integrity: sha512-q217OSE8DTp8AFHuNHXo0Y86e1wtlfVrXiAlwkIvGRQv9zbc6mE3sjIVfwI8sYUyNxwOg0j/Vm1RKM04JcWLJw==}
+  '@rollup/rollup-android-arm-eabi@4.34.9':
+    resolution: {integrity: sha512-qZdlImWXur0CFakn2BJ2znJOdqYZKiedEPEVNTBrpfPjc/YuTGcaYZcdmNFTkUj3DU0ZM/AElcM8Ybww3xVLzA==}
     cpu: [arm]
     os: [android]
 
-  '@rollup/rollup-android-arm64@4.34.8':
-    resolution: {integrity: sha512-Gigjz7mNWaOL9wCggvoK3jEIUUbGul656opstjaUSGC3eT0BM7PofdAJaBfPFWWkXNVAXbaQtC99OCg4sJv70Q==}
+  '@rollup/rollup-android-arm64@4.34.9':
+    resolution: {integrity: sha512-4KW7P53h6HtJf5Y608T1ISKvNIYLWRKMvfnG0c44M6In4DQVU58HZFEVhWINDZKp7FZps98G3gxwC1sb0wXUUg==}
     cpu: [arm64]
     os: [android]
 
-  '@rollup/rollup-darwin-arm64@4.34.8':
-    resolution: {integrity: sha512-02rVdZ5tgdUNRxIUrFdcMBZQoaPMrxtwSb+/hOfBdqkatYHR3lZ2A2EGyHq2sGOd0Owk80oV3snlDASC24He3Q==}
+  '@rollup/rollup-darwin-arm64@4.34.9':
+    resolution: {integrity: sha512-0CY3/K54slrzLDjOA7TOjN1NuLKERBgk9nY5V34mhmuu673YNb+7ghaDUs6N0ujXR7fz5XaS5Aa6d2TNxZd0OQ==}
     cpu: [arm64]
     os: [darwin]
 
-  '@rollup/rollup-darwin-x64@4.34.8':
-    resolution: {integrity: sha512-qIP/elwR/tq/dYRx3lgwK31jkZvMiD6qUtOycLhTzCvrjbZ3LjQnEM9rNhSGpbLXVJYQ3rq39A6Re0h9tU2ynw==}
+  '@rollup/rollup-darwin-x64@4.34.9':
+    resolution: {integrity: sha512-eOojSEAi/acnsJVYRxnMkPFqcxSMFfrw7r2iD9Q32SGkb/Q9FpUY1UlAu1DH9T7j++gZ0lHjnm4OyH2vCI7l7Q==}
     cpu: [x64]
     os: [darwin]
 
-  '@rollup/rollup-freebsd-arm64@4.34.8':
-    resolution: {integrity: sha512-IQNVXL9iY6NniYbTaOKdrlVP3XIqazBgJOVkddzJlqnCpRi/yAeSOa8PLcECFSQochzqApIOE1GHNu3pCz+BDA==}
+  '@rollup/rollup-freebsd-arm64@4.34.9':
+    resolution: {integrity: sha512-2lzjQPJbN5UnHm7bHIUKFMulGTQwdvOkouJDpPysJS+QFBGDJqcfh+CxxtG23Ik/9tEvnebQiylYoazFMAgrYw==}
     cpu: [arm64]
     os: [freebsd]
 
-  '@rollup/rollup-freebsd-x64@4.34.8':
-    resolution: {integrity: sha512-TYXcHghgnCqYFiE3FT5QwXtOZqDj5GmaFNTNt3jNC+vh22dc/ukG2cG+pi75QO4kACohZzidsq7yKTKwq/Jq7Q==}
+  '@rollup/rollup-freebsd-x64@4.34.9':
+    resolution: {integrity: sha512-SLl0hi2Ah2H7xQYd6Qaiu01kFPzQ+hqvdYSoOtHYg/zCIFs6t8sV95kaoqjzjFwuYQLtOI0RZre/Ke0nPaQV+g==}
     cpu: [x64]
     os: [freebsd]
 
-  '@rollup/rollup-linux-arm-gnueabihf@4.34.8':
-    resolution: {integrity: sha512-A4iphFGNkWRd+5m3VIGuqHnG3MVnqKe7Al57u9mwgbyZ2/xF9Jio72MaY7xxh+Y87VAHmGQr73qoKL9HPbXj1g==}
+  '@rollup/rollup-linux-arm-gnueabihf@4.34.9':
+    resolution: {integrity: sha512-88I+D3TeKItrw+Y/2ud4Tw0+3CxQ2kLgu3QvrogZ0OfkmX/DEppehus7L3TS2Q4lpB+hYyxhkQiYPJ6Mf5/dPg==}
     cpu: [arm]
     os: [linux]
 
-  '@rollup/rollup-linux-arm-musleabihf@4.34.8':
-    resolution: {integrity: sha512-S0lqKLfTm5u+QTxlFiAnb2J/2dgQqRy/XvziPtDd1rKZFXHTyYLoVL58M/XFwDI01AQCDIevGLbQrMAtdyanpA==}
+  '@rollup/rollup-linux-arm-musleabihf@4.34.9':
+    resolution: {integrity: sha512-3qyfWljSFHi9zH0KgtEPG4cBXHDFhwD8kwg6xLfHQ0IWuH9crp005GfoUUh/6w9/FWGBwEHg3lxK1iHRN1MFlA==}
     cpu: [arm]
     os: [linux]
 
-  '@rollup/rollup-linux-arm64-gnu@4.34.8':
-    resolution: {integrity: sha512-jpz9YOuPiSkL4G4pqKrus0pn9aYwpImGkosRKwNi+sJSkz+WU3anZe6hi73StLOQdfXYXC7hUfsQlTnjMd3s1A==}
+  '@rollup/rollup-linux-arm64-gnu@4.34.9':
+    resolution: {integrity: sha512-6TZjPHjKZUQKmVKMUowF3ewHxctrRR09eYyvT5eFv8w/fXarEra83A2mHTVJLA5xU91aCNOUnM+DWFMSbQ0Nxw==}
     cpu: [arm64]
     os: [linux]
 
-  '@rollup/rollup-linux-arm64-musl@4.34.8':
-    resolution: {integrity: sha512-KdSfaROOUJXgTVxJNAZ3KwkRc5nggDk+06P6lgi1HLv1hskgvxHUKZ4xtwHkVYJ1Rep4GNo+uEfycCRRxht7+Q==}
+  '@rollup/rollup-linux-arm64-musl@4.34.9':
+    resolution: {integrity: sha512-LD2fytxZJZ6xzOKnMbIpgzFOuIKlxVOpiMAXawsAZ2mHBPEYOnLRK5TTEsID6z4eM23DuO88X0Tq1mErHMVq0A==}
     cpu: [arm64]
     os: [linux]
 
-  '@rollup/rollup-linux-loongarch64-gnu@4.34.8':
-    resolution: {integrity: sha512-NyF4gcxwkMFRjgXBM6g2lkT58OWztZvw5KkV2K0qqSnUEqCVcqdh2jN4gQrTn/YUpAcNKyFHfoOZEer9nwo6uQ==}
+  '@rollup/rollup-linux-loongarch64-gnu@4.34.9':
+    resolution: {integrity: sha512-dRAgTfDsn0TE0HI6cmo13hemKpVHOEyeciGtvlBTkpx/F65kTvShtY/EVyZEIfxFkV5JJTuQ9tP5HGBS0hfxIg==}
     cpu: [loong64]
     os: [linux]
 
-  '@rollup/rollup-linux-powerpc64le-gnu@4.34.8':
-    resolution: {integrity: sha512-LMJc999GkhGvktHU85zNTDImZVUCJ1z/MbAJTnviiWmmjyckP5aQsHtcujMjpNdMZPT2rQEDBlJfubhs3jsMfw==}
+  '@rollup/rollup-linux-powerpc64le-gnu@4.34.9':
+    resolution: {integrity: sha512-PHcNOAEhkoMSQtMf+rJofwisZqaU8iQ8EaSps58f5HYll9EAY5BSErCZ8qBDMVbq88h4UxaNPlbrKqfWP8RfJA==}
     cpu: [ppc64]
     os: [linux]
 
-  '@rollup/rollup-linux-riscv64-gnu@4.34.8':
-    resolution: {integrity: sha512-xAQCAHPj8nJq1PI3z8CIZzXuXCstquz7cIOL73HHdXiRcKk8Ywwqtx2wrIy23EcTn4aZ2fLJNBB8d0tQENPCmw==}
+  '@rollup/rollup-linux-riscv64-gnu@4.34.9':
+    resolution: {integrity: sha512-Z2i0Uy5G96KBYKjeQFKbbsB54xFOL5/y1P5wNBsbXB8yE+At3oh0DVMjQVzCJRJSfReiB2tX8T6HUFZ2k8iaKg==}
     cpu: [riscv64]
     os: [linux]
 
-  '@rollup/rollup-linux-s390x-gnu@4.34.8':
-    resolution: {integrity: sha512-DdePVk1NDEuc3fOe3dPPTb+rjMtuFw89gw6gVWxQFAuEqqSdDKnrwzZHrUYdac7A7dXl9Q2Vflxpme15gUWQFA==}
+  '@rollup/rollup-linux-s390x-gnu@4.34.9':
+    resolution: {integrity: sha512-U+5SwTMoeYXoDzJX5dhDTxRltSrIax8KWwfaaYcynuJw8mT33W7oOgz0a+AaXtGuvhzTr2tVKh5UO8GVANTxyQ==}
     cpu: [s390x]
     os: [linux]
 
-  '@rollup/rollup-linux-x64-gnu@4.34.8':
-    resolution: {integrity: sha512-8y7ED8gjxITUltTUEJLQdgpbPh1sUQ0kMTmufRF/Ns5tI9TNMNlhWtmPKKHCU0SilX+3MJkZ0zERYYGIVBYHIA==}
+  '@rollup/rollup-linux-x64-gnu@4.34.9':
+    resolution: {integrity: sha512-FwBHNSOjUTQLP4MG7y6rR6qbGw4MFeQnIBrMe161QGaQoBQLqSUEKlHIiVgF3g/mb3lxlxzJOpIBhaP+C+KP2A==}
     cpu: [x64]
     os: [linux]
 
-  '@rollup/rollup-linux-x64-musl@4.34.8':
-    resolution: {integrity: sha512-SCXcP0ZpGFIe7Ge+McxY5zKxiEI5ra+GT3QRxL0pMMtxPfpyLAKleZODi1zdRHkz5/BhueUrYtYVgubqe9JBNQ==}
+  '@rollup/rollup-linux-x64-musl@4.34.9':
+    resolution: {integrity: sha512-cYRpV4650z2I3/s6+5/LONkjIz8MBeqrk+vPXV10ORBnshpn8S32bPqQ2Utv39jCiDcO2eJTuSlPXpnvmaIgRA==}
     cpu: [x64]
     os: [linux]
 
-  '@rollup/rollup-win32-arm64-msvc@4.34.8':
-    resolution: {integrity: sha512-YHYsgzZgFJzTRbth4h7Or0m5O74Yda+hLin0irAIobkLQFRQd1qWmnoVfwmKm9TXIZVAD0nZ+GEb2ICicLyCnQ==}
+  '@rollup/rollup-win32-arm64-msvc@4.34.9':
+    resolution: {integrity: sha512-z4mQK9dAN6byRA/vsSgQiPeuO63wdiDxZ9yg9iyX2QTzKuQM7T4xlBoeUP/J8uiFkqxkcWndWi+W7bXdPbt27Q==}
     cpu: [arm64]
     os: [win32]
 
-  '@rollup/rollup-win32-ia32-msvc@4.34.8':
-    resolution: {integrity: sha512-r3NRQrXkHr4uWy5TOjTpTYojR9XmF0j/RYgKCef+Ag46FWUTltm5ziticv8LdNsDMehjJ543x/+TJAek/xBA2w==}
+  '@rollup/rollup-win32-ia32-msvc@4.34.9':
+    resolution: {integrity: sha512-KB48mPtaoHy1AwDNkAJfHXvHp24H0ryZog28spEs0V48l3H1fr4i37tiyHsgKZJnCmvxsbATdZGBpbmxTE3a9w==}
     cpu: [ia32]
     os: [win32]
 
-  '@rollup/rollup-win32-x64-msvc@4.34.8':
-    resolution: {integrity: sha512-U0FaE5O1BCpZSeE6gBl3c5ObhePQSfk9vDRToMmTkbhCOgW4jqvtS5LGyQ76L1fH8sM0keRp4uDTsbjiUyjk0g==}
+  '@rollup/rollup-win32-x64-msvc@4.34.9':
+    resolution: {integrity: sha512-AyleYRPU7+rgkMWbEh71fQlrzRfeP6SyMnRf9XX4fCdDPAJumdSBqYEcWPMzVQ4ScAl7E4oFfK0GUVn77xSwbw==}
     cpu: [x64]
     os: [win32]
 
@@ -1276,8 +1276,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-plugin-react-hooks@5.1.0:
-    resolution: {integrity: sha512-mpJRtPgHN2tNAvZ35AMfqeB3Xqeo273QxrHJsbBEPWODRM4r0yB6jfoROqKEYrOn27UtRPpcpHc2UqyBSuUNTw==}
+  eslint-plugin-react-hooks@5.2.0:
+    resolution: {integrity: sha512-+f15FfK64YQwZdJNELETdn5ibXEUQmW1DZL6KXhNnc2heoy/sg9VJJeT7n8TlMWouzWqSWavFkIhHyIbIAEapg==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -1886,8 +1886,8 @@ packages:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
-  rollup@4.34.8:
-    resolution: {integrity: sha512-489gTVMzAYdiZHFVA/ig/iYFllCcWFHMvUHI1rpFmkoUtRlQxqh6/yiNqnYibjMZ2b/+FUQwldG+aLsEt6bglQ==}
+  rollup@4.34.9:
+    resolution: {integrity: sha512-nF5XYqWWp9hx/LrpC8sZvvvmq0TeTjQgaZHYmAgwysT9nh8sWnZhBnM8ZyVbbJFIQBLwHDNoMqsBZBbUo4U8sQ==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -1933,9 +1933,6 @@ packages:
   split-on-first@1.1.0:
     resolution: {integrity: sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw==}
     engines: {node: '>=6'}
-
-  starknet@6.21.0:
-    resolution: {integrity: sha512-xUSlqyE+J/S5un3TyQY0Kehilh1u7ewPaut87eOxTDS1r90SU0QvQ3JEECp5LbW/sqsaMhfb+tGTBGrKzXg7bg==}
 
   starknet@6.23.1:
     resolution: {integrity: sha512-vQV9luXpmwZZs9RVZaRwm2iD8T0PYx1AzgZeQsCvD89tR0HwUF0paty27ZzuJrdPe0CmAs/ipAYFCE55jbj0RQ==}
@@ -2404,10 +2401,10 @@ snapshots:
   '@cbor-extract/cbor-extract-win32-x64@2.2.0':
     optional: true
 
-  '@dojoengine/core@1.1.1(encoding@0.1.13)(typescript@5.7.3)':
+  '@dojoengine/core@1.2.4(encoding@0.1.13)(typescript@5.7.3)':
     dependencies:
       '@dojoengine/recs': 2.0.13(typescript@5.7.3)(zod@3.24.2)
-      starknet: 6.21.0(encoding@0.1.13)
+      starknet: 6.23.1(encoding@0.1.13)
       zod: 3.24.2
     transitivePeerDependencies:
       - bufferutil
@@ -2415,9 +2412,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@dojoengine/create-burner@1.1.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)':
+  '@dojoengine/create-burner@1.2.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)':
     dependencies:
-      '@dojoengine/core': 1.1.1(encoding@0.1.13)(typescript@5.7.3)
+      '@dojoengine/core': 1.2.4(encoding@0.1.13)(typescript@5.7.3)
       '@scure/bip32': 1.6.2
       '@starknet-react/core': 3.7.2(get-starknet-core@4.0.0)(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)
       encoding: 0.1.13
@@ -2431,7 +2428,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@dojoengine/predeployed-connector@1.1.1(@starknet-react/core@3.7.2(get-starknet-core@4.0.0)(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3))(starknet@6.23.1(encoding@0.1.13))':
+  '@dojoengine/predeployed-connector@1.2.4(@starknet-react/core@3.7.2(get-starknet-core@4.0.0)(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3))(starknet@6.23.1(encoding@0.1.13))':
     dependencies:
       '@starknet-io/types-js': 0.7.10
       '@starknet-react/core': 3.7.2(get-starknet-core@4.0.0)(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)
@@ -2449,10 +2446,11 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@dojoengine/sdk@1.1.1(@tanstack/react-query@5.66.11(react@19.0.0))(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(encoding@0.1.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)':
+  '@dojoengine/sdk@1.2.4(@tanstack/react-query@5.66.11(react@19.0.0))(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(encoding@0.1.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(zod@3.24.2)':
     dependencies:
-      '@dojoengine/core': 1.1.1(encoding@0.1.13)(typescript@5.7.3)
-      '@dojoengine/torii-client': 1.1.1
+      '@dojoengine/core': 1.2.4(encoding@0.1.13)(typescript@5.7.3)
+      '@dojoengine/torii-client': 1.2.4
+      '@dojoengine/utils': 1.2.4(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(zod@3.24.2)
       '@tanstack/react-query': 5.66.11(react@19.0.0)
       '@types/react': 19.0.10
       '@types/react-dom': 19.0.4(@types/react@19.0.10)
@@ -2466,14 +2464,15 @@ snapshots:
       - encoding
       - typescript
       - utf-8-validate
+      - zod
 
-  '@dojoengine/torii-client@1.1.1':
+  '@dojoengine/torii-client@1.2.4':
     dependencies:
-      '@dojoengine/torii-wasm': 1.1.1
+      '@dojoengine/torii-wasm': 1.2.4
 
-  '@dojoengine/torii-wasm@1.1.1': {}
+  '@dojoengine/torii-wasm@1.2.4': {}
 
-  '@dojoengine/utils@1.1.1(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(zod@3.24.2)':
+  '@dojoengine/utils@1.2.4(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(zod@3.24.2)':
     dependencies:
       '@dojoengine/recs': 2.0.13(typescript@5.7.3)(zod@3.24.2)
       '@latticexyz/utils': 2.2.20
@@ -2697,65 +2696,65 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@rollup/plugin-virtual@3.0.2(rollup@4.34.8)':
+  '@rollup/plugin-virtual@3.0.2(rollup@4.34.9)':
     optionalDependencies:
-      rollup: 4.34.8
+      rollup: 4.34.9
 
-  '@rollup/rollup-android-arm-eabi@4.34.8':
+  '@rollup/rollup-android-arm-eabi@4.34.9':
     optional: true
 
-  '@rollup/rollup-android-arm64@4.34.8':
+  '@rollup/rollup-android-arm64@4.34.9':
     optional: true
 
-  '@rollup/rollup-darwin-arm64@4.34.8':
+  '@rollup/rollup-darwin-arm64@4.34.9':
     optional: true
 
-  '@rollup/rollup-darwin-x64@4.34.8':
+  '@rollup/rollup-darwin-x64@4.34.9':
     optional: true
 
-  '@rollup/rollup-freebsd-arm64@4.34.8':
+  '@rollup/rollup-freebsd-arm64@4.34.9':
     optional: true
 
-  '@rollup/rollup-freebsd-x64@4.34.8':
+  '@rollup/rollup-freebsd-x64@4.34.9':
     optional: true
 
-  '@rollup/rollup-linux-arm-gnueabihf@4.34.8':
+  '@rollup/rollup-linux-arm-gnueabihf@4.34.9':
     optional: true
 
-  '@rollup/rollup-linux-arm-musleabihf@4.34.8':
+  '@rollup/rollup-linux-arm-musleabihf@4.34.9':
     optional: true
 
-  '@rollup/rollup-linux-arm64-gnu@4.34.8':
+  '@rollup/rollup-linux-arm64-gnu@4.34.9':
     optional: true
 
-  '@rollup/rollup-linux-arm64-musl@4.34.8':
+  '@rollup/rollup-linux-arm64-musl@4.34.9':
     optional: true
 
-  '@rollup/rollup-linux-loongarch64-gnu@4.34.8':
+  '@rollup/rollup-linux-loongarch64-gnu@4.34.9':
     optional: true
 
-  '@rollup/rollup-linux-powerpc64le-gnu@4.34.8':
+  '@rollup/rollup-linux-powerpc64le-gnu@4.34.9':
     optional: true
 
-  '@rollup/rollup-linux-riscv64-gnu@4.34.8':
+  '@rollup/rollup-linux-riscv64-gnu@4.34.9':
     optional: true
 
-  '@rollup/rollup-linux-s390x-gnu@4.34.8':
+  '@rollup/rollup-linux-s390x-gnu@4.34.9':
     optional: true
 
-  '@rollup/rollup-linux-x64-gnu@4.34.8':
+  '@rollup/rollup-linux-x64-gnu@4.34.9':
     optional: true
 
-  '@rollup/rollup-linux-x64-musl@4.34.8':
+  '@rollup/rollup-linux-x64-musl@4.34.9':
     optional: true
 
-  '@rollup/rollup-win32-arm64-msvc@4.34.8':
+  '@rollup/rollup-win32-arm64-msvc@4.34.9':
     optional: true
 
-  '@rollup/rollup-win32-ia32-msvc@4.34.8':
+  '@rollup/rollup-win32-ia32-msvc@4.34.9':
     optional: true
 
-  '@rollup/rollup-win32-x64-msvc@4.34.8':
+  '@rollup/rollup-win32-x64-msvc@4.34.9':
     optional: true
 
   '@scure/base@1.1.9': {}
@@ -3346,7 +3345,7 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-plugin-react-hooks@5.1.0(eslint@9.21.0(jiti@2.4.2)):
+  eslint-plugin-react-hooks@5.2.0(eslint@9.21.0(jiti@2.4.2)):
     dependencies:
       eslint: 9.21.0(jiti@2.4.2)
 
@@ -3906,29 +3905,29 @@ snapshots:
 
   reusify@1.1.0: {}
 
-  rollup@4.34.8:
+  rollup@4.34.9:
     dependencies:
       '@types/estree': 1.0.6
     optionalDependencies:
-      '@rollup/rollup-android-arm-eabi': 4.34.8
-      '@rollup/rollup-android-arm64': 4.34.8
-      '@rollup/rollup-darwin-arm64': 4.34.8
-      '@rollup/rollup-darwin-x64': 4.34.8
-      '@rollup/rollup-freebsd-arm64': 4.34.8
-      '@rollup/rollup-freebsd-x64': 4.34.8
-      '@rollup/rollup-linux-arm-gnueabihf': 4.34.8
-      '@rollup/rollup-linux-arm-musleabihf': 4.34.8
-      '@rollup/rollup-linux-arm64-gnu': 4.34.8
-      '@rollup/rollup-linux-arm64-musl': 4.34.8
-      '@rollup/rollup-linux-loongarch64-gnu': 4.34.8
-      '@rollup/rollup-linux-powerpc64le-gnu': 4.34.8
-      '@rollup/rollup-linux-riscv64-gnu': 4.34.8
-      '@rollup/rollup-linux-s390x-gnu': 4.34.8
-      '@rollup/rollup-linux-x64-gnu': 4.34.8
-      '@rollup/rollup-linux-x64-musl': 4.34.8
-      '@rollup/rollup-win32-arm64-msvc': 4.34.8
-      '@rollup/rollup-win32-ia32-msvc': 4.34.8
-      '@rollup/rollup-win32-x64-msvc': 4.34.8
+      '@rollup/rollup-android-arm-eabi': 4.34.9
+      '@rollup/rollup-android-arm64': 4.34.9
+      '@rollup/rollup-darwin-arm64': 4.34.9
+      '@rollup/rollup-darwin-x64': 4.34.9
+      '@rollup/rollup-freebsd-arm64': 4.34.9
+      '@rollup/rollup-freebsd-x64': 4.34.9
+      '@rollup/rollup-linux-arm-gnueabihf': 4.34.9
+      '@rollup/rollup-linux-arm-musleabihf': 4.34.9
+      '@rollup/rollup-linux-arm64-gnu': 4.34.9
+      '@rollup/rollup-linux-arm64-musl': 4.34.9
+      '@rollup/rollup-linux-loongarch64-gnu': 4.34.9
+      '@rollup/rollup-linux-powerpc64le-gnu': 4.34.9
+      '@rollup/rollup-linux-riscv64-gnu': 4.34.9
+      '@rollup/rollup-linux-s390x-gnu': 4.34.9
+      '@rollup/rollup-linux-x64-gnu': 4.34.9
+      '@rollup/rollup-linux-x64-musl': 4.34.9
+      '@rollup/rollup-win32-arm64-msvc': 4.34.9
+      '@rollup/rollup-win32-ia32-msvc': 4.34.9
+      '@rollup/rollup-win32-x64-msvc': 4.34.9
       fsevents: 2.3.3
 
   run-parallel@1.2.0:
@@ -3960,22 +3959,6 @@ snapshots:
   source-map-js@1.2.1: {}
 
   split-on-first@1.1.0: {}
-
-  starknet@6.21.0(encoding@0.1.13):
-    dependencies:
-      '@noble/curves': 1.7.0
-      '@noble/hashes': 1.6.0
-      '@scure/base': 1.2.1
-      '@scure/starknet': 1.1.0
-      abi-wan-kanabi: 2.2.4
-      fetch-cookie: 3.0.1
-      isomorphic-fetch: 3.0.0(encoding@0.1.13)
-      lossless-json: 4.0.2
-      pako: 2.1.0
-      starknet-types-07: '@starknet-io/types-js@0.7.10'
-      ts-mixer: 6.0.4
-    transitivePeerDependencies:
-      - encoding
 
   starknet@6.23.1(encoding@0.1.13):
     dependencies:
@@ -4132,9 +4115,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-top-level-await@1.5.0(rollup@4.34.8)(vite@6.2.0(jiti@2.4.2)(lightningcss@1.29.1)):
+  vite-plugin-top-level-await@1.5.0(rollup@4.34.9)(vite@6.2.0(jiti@2.4.2)(lightningcss@1.29.1)):
     dependencies:
-      '@rollup/plugin-virtual': 3.0.2(rollup@4.34.8)
+      '@rollup/plugin-virtual': 3.0.2(rollup@4.34.9)
       '@swc/core': 1.11.5
       uuid: 10.0.0
       vite: 6.2.0(jiti@2.4.2)(lightningcss@1.29.1)
@@ -4150,7 +4133,7 @@ snapshots:
     dependencies:
       esbuild: 0.25.0
       postcss: 8.5.3
-      rollup: 4.34.8
+      rollup: 4.34.9
     optionalDependencies:
       fsevents: 2.3.3
       jiti: 2.4.2

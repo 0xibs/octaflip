@@ -16,43 +16,43 @@ import { ENV_OPTIONS } from "./utils/constants";
 import { CONFIG } from "./config";
 
 // Initialize the connector
-const connector = new ControllerConnector({
-  policies: CONFIG.POLICIES,
-  chains: [
-    {
-      rpcUrl:
-        CONFIG.ENV == ENV_OPTIONS.SEPOLIA
-          ? CONFIG.RPC_SEPOLIA_URL
-          : CONFIG.RPC_MAINNET_URL,
-    },
-  ],
-  defaultChainId:
-    CONFIG.ENV == ENV_OPTIONS.SEPOLIA
-      ? constants.StarknetChainId.SN_SEPOLIA
-      : constants.StarknetChainId.SN_MAIN,
-  // url:
-  //     process.env.NEXT_PUBLIC_KEYCHAIN_DEPLOYMENT_URL ??
-  //     process.env.NEXT_PUBLIC_KEYCHAIN_FRAME_URL,
-  // profileUrl:
-  //     process.env.NEXT_PUBLIC_PROFILE_DEPLOYMENT_URL ??
-  //     process.env.NEXT_PUBLIC_PROFILE_FRAME_URL,
-  // slot: "profile-example",
-  slot: "octaflipdev2",
-  preset: "octaflip",
-  propagateSessionErrors: true,
-  // namespace: "dopewars",
-  // slot: "eternum-prod",
-  // preset: "eternum",
-  // namespace: "s0_eternum",
-  // slot: "darkshuffle-mainnet",
-  // preset: "dark-shuffle",
-  // namespace: "darkshuffle_s0",
-  // tokens: {
-  //   erc20: [
-  //     "0x0124aeb495b947201f5fac96fd1138e326ad86195b98df6dec9009158a533b49",
-  //   ],
-  // },
-});
+// const connector = new ControllerConnector({
+//   policies: CONFIG.POLICIES,
+//   chains: [
+//     {
+//       rpcUrl:
+//         CONFIG.ENV == ENV_OPTIONS.SEPOLIA
+//           ? CONFIG.RPC_SEPOLIA_URL
+//           : CONFIG.RPC_MAINNET_URL,
+//     },
+//   ],
+//   defaultChainId:
+//     CONFIG.ENV == ENV_OPTIONS.SEPOLIA
+//       ? constants.StarknetChainId.SN_SEPOLIA
+//       : constants.StarknetChainId.SN_MAIN,
+//   // url:
+//   //     process.env.NEXT_PUBLIC_KEYCHAIN_DEPLOYMENT_URL ??
+//   //     process.env.NEXT_PUBLIC_KEYCHAIN_FRAME_URL,
+//   // profileUrl:
+//   //     process.env.NEXT_PUBLIC_PROFILE_DEPLOYMENT_URL ??
+//   //     process.env.NEXT_PUBLIC_PROFILE_FRAME_URL,
+//   // slot: "profile-example",
+//   slot: "octaflipdev2",
+//   preset: "octaflip",
+//   propagateSessionErrors: true,
+//   // namespace: "dopewars",
+//   // slot: "eternum-prod",
+//   // preset: "eternum",
+//   // namespace: "s0_eternum",
+//   // slot: "darkshuffle-mainnet",
+//   // preset: "dark-shuffle",
+//   // namespace: "darkshuffle_s0",
+//   // tokens: {
+//   //   erc20: [
+//   //     "0x0124aeb495b947201f5fac96fd1138e326ad86195b98df6dec9009158a533b49",
+//   //   ],
+//   // },
+// });
 
 // Configure RPC provider
 const provider = jsonRpcProvider({
@@ -66,6 +66,8 @@ const provider = jsonRpcProvider({
     }
   },
 });
+
+console.log("x");
 
 let pa: PredeployedAccountsConnector[] = [];
 predeployedAccounts({
@@ -86,8 +88,8 @@ export function StarknetProvider({ children }: { children: React.ReactNode }) {
     <StarknetConfig
       autoConnect
       chains={[mainnet, sepolia]}
-      provider={provider}
-      connectors={[connector]}
+      provider={localProvider}
+      connectors={pa as unknown as Connector[]}
       explorer={starkscan}
     >
       {children}

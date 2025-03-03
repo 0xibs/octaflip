@@ -1,8 +1,8 @@
 {
   "world": {
     "class_hash": "0x7c9469d45a9cdbab775035afb48e1fa73fb35ab059fcb9dfb0a301aa973e783",
-    "address": "0x69f1081f1b21d91e9a04ba5c1afe3a64fb740a1a56fe33b74fe4e38620ea93c",
-    "seed": "octa_flip_dev_1",
+    "address": "0x5de74240ba5d4b5e9e6858e377993d3ae950f22cbd937be4100257286de47d4",
+    "seed": "octa_flip",
     "name": "Octa Flip",
     "entrypoints": [
       "uuid",
@@ -1312,7 +1312,7 @@
   },
   "contracts": [
     {
-      "address": "0x470e0096bdc3b84f71b7815a7829fbd05fd3787bf07f97a7d579398e1d67f76",
+      "address": "0x4cf415081f92a9ea1ac38ee14e82caa051965ddd23a5066e89f920e935e0712",
       "class_hash": "0x4a59b91c3a8c4eedb7ddb30baf28f15f19a61b6abba3e9279cc202681adec6f",
       "abi": [
         {

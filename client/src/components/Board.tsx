@@ -106,23 +106,6 @@ const Board = () => {
     }
   }
 
-  async function getTilesFlippedCount(gameId: string) {
-    try {
-      const flipCount = await client.actions.playersTilesFlipped(gameId);
-      const GreenFlipCount = Number(parseInt(flipCount["0"]));
-      const YellowFlipCount = Number(parseInt(flipCount["1"]));
-
-      setPlayerGreenFlipCount(GreenFlipCount);
-      setPlayerYellowFlipCount(YellowFlipCount);
-    } catch (e: any) {
-      const errorMessage = extractErrorMessageFromJSONRPCError(
-        JSON.stringify(e)
-      );
-      toast.error(errorMessage);
-      console.error(e);
-    }
-  }
-
   async function startGame() {
     if (!account) {
       toast.error("Account not connected");

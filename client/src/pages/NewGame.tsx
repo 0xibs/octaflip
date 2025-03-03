@@ -1,7 +1,14 @@
-import { useDojoSDK } from "@dojoengine/sdk/react";
-import { getEvents } from "@dojoengine/utils";
+import {
+  useDojoSDK,
+  useEntityId,
+  useEntityQuery,
+  useEventQuery,
+  useModel,
+} from "@dojoengine/sdk/react";
+import { KeysClause, ToriiQueryBuilder } from "@dojoengine/sdk";
+import { getEntityIdFromKeys, getEvents } from "@dojoengine/utils";
 import { useAccount } from "@starknet-react/core";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { toast } from "react-toastify";
 import { delay, extractErrorMessageFromJSONRPCError } from "../utils/helpers";
@@ -9,29 +16,34 @@ import { useNavigate } from "react-router";
 import { DELAY_MILLISECONDS } from "../utils/constants";
 import Header from "../components/Header";
 import { QUERY_PLAYERS_IN_GAME } from "../utils/queries";
+import { ModelsMapping } from "../dojo/typescript/models.gen";
+import { addAddressPadding } from "starknet";
 
 const NewGame = () => {
-  const [gameId, setGameId] = useState<string>("");
+  const [gameId, setGameId] = useState<string | null>(null);
   const [creatingNewGame, setCreatingNewGame] = useState(false);
   const [joiningGame, setJoiningGame] = useState(false);
-  const { client } = useDojoSDK();
+  const { client, useDojoStore } = useDojoSDK();
   const { account } = useAccount();
+
+  const state = useDojoStore((state) => state);
+  console.log("STATE: ", state);
 
   const navigate = useNavigate();
 
-  const {
-    data: queryPlayersInGameData,
-    startPolling: startPollingPlayersInGame,
-  } = useQuery(QUERY_PLAYERS_IN_GAME, {
-    variables: { gameId },
-  });
+  // const {
+  //   data: queryPlayersInGameData,
+  //   startPolling: startPollingPlayersInGame,
+  // } = useQuery(QUERY_PLAYERS_IN_GAME, {
+  //   variables: { gameId },
+  // });
 
-  const playersInGame =
-    queryPlayersInGameData?.octaFlipPlayerInGameModels?.edges;
+  // const playersInGame =
+  //   queryPlayersInGameData?.octaFlipPlayerInGameModels?.edges;
 
-  if (playersInGame?.length > 1) {
-    navigate(`/play/${gameId}`);
-  }
+  // if (playersInGame?.length > 1) {
+  //   navigate(`/play/${gameId}`);
+  // }
 
   // Create and join game
   const createNewGame = async () => {
@@ -103,19 +115,55 @@ const NewGame = () => {
     }
   };
 
-  startPollingPlayersInGame(100);
+  // startPollingPlayersInGame(100);
 
-  useEffect(() => {
-    const createAndJoinGame = async () => {
-      await createNewGame().then(async (gameId) => await joinGame(gameId));
-    };
+  // useEffect(() => {
+  //   const createAndJoinGame = async () => {
+  //     await createNewGame().then(async (gameId) => await joinGame(gameId));
+  //   };
 
-    if (account) {
-      createAndJoinGame();
-    }
+  //   if (account) {
+  //     createAndJoinGame();
+  //   }
 
-    return () => {};
-  }, [account]);
+  //   return () => {};
+  // }, [account]);
+
+  const entityId = useEntityId(account?.address ?? 0);
+  console.log("Entity ID: ", entityId);
+
+  useEntityQuery(
+    new ToriiQueryBuilder()
+      .withClause(
+        KeysClause(
+          [ModelsMapping.Game],
+          [gameId ? gameId : undefined],
+          "VariableLen"
+        ).build()
+      )
+      .includeHashedKeys()
+  );
+
+  const game = useModel(entityId as string, ModelsMapping.Game);
+  console.log("Game: ", game);
+
+  useEventQuery(
+    new ToriiQueryBuilder()
+      .withClause(
+        KeysClause(
+          [ModelsMapping.GameCreated],
+          [gameId ? gameId : undefined],
+          "VariableLen"
+        ).build()
+      )
+      .includeHashedKeys()
+  );
+
+  const GameCreatedEvent = useModel(
+    entityId as string,
+    ModelsMapping.GameCreated
+  );
+  console.log("GameCreatedEvent: ", GameCreatedEvent);
 
   return (
     <>
@@ -148,12 +196,23 @@ const NewGame = () => {
                 Waiting for opponent
               </span>
             </div>
+            <div className="text-white"> GC: {game?.game_id}</div>
+
             <button
               type="button"
               onClick={async () => navigate(`/play/${gameId}`)}
               className={`text-md cursor-pointer py-2 px-4 sm:text-2xl sm:py-4 sm:px-8 text-center font-black text-stone-100 bg-stone-600 rounded-xl border-2 border-stone-600 shadow-inner`}
             >
               PLAY
+            </button>
+            <button
+              type="button"
+              onClick={async () => {
+                await createNewGame(gameId);
+              }}
+              className={`text-md cursor-pointer py-2 px-4 sm:text-2xl sm:py-4 sm:px-8 text-center font-black text-stone-100 bg-stone-600 rounded-xl border-2 border-stone-600 shadow-inner`}
+            >
+              Create
             </button>
           </div>
         )}
