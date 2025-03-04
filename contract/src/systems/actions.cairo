@@ -44,6 +44,7 @@ pub mod actions {
         pub game_id: u64,
         #[key]
         pub player_id: u8,
+        #[key]
         pub player_address: ContractAddress,
     }
 
@@ -53,6 +54,7 @@ pub mod actions {
     pub struct GameStarted {
         #[key]
         pub game_id: u64,
+        #[key]
         pub start_time: u64,
     }
 
@@ -62,7 +64,9 @@ pub mod actions {
     pub struct GameEnded {
         #[key]
         pub game_id: u64,
+        #[key]
         pub end_time: u64,
+        #[key]
         pub winner: ContractAddress,
     }
 
@@ -72,8 +76,11 @@ pub mod actions {
     pub struct TileClaim {
         #[key]
         pub game_id: u64,
+        #[key]
         pub player: ContractAddress,
+        #[key]
         pub x: u8,
+        #[key]
         pub y: u8,
     }
 
